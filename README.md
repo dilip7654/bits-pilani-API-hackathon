@@ -44,24 +44,20 @@ Zocdoc API: For scheduling and managing appointments with healthcare providers.
 
 To get a local copy up and running, follow these steps:
 
-1. *Clone the repository:*
-    bash
-    git clone https://github.com/yourusername/Bits-pilani-API-hackathon
-    
-2. *Navigate to the project directory:*
-    bash
-    cd Bits-pilani-API-hackathon
-    
-3. *Install dependencies:*
-    bash
+1. **Clone the repository:**
+    ```bash
+    git clone https://github.com/yourusername/call-of-code.git
+    ```
+2. **Navigate to the project directory:**
+    ```bash
+    cd call-of-code
+    ```
+3. **Install dependencies:**
+    ```bash
     npm install
-    
-4. *Install dependencies(for tailwind setup):*
-    bash
-   npm install -D tailwindcss postcss autoprefixer
-    
-5. *Run the development server:*
-    bash
+    ```
+4. **Run the development server:**
+    ```bash
     npm run dev
     
 ## Contributing
