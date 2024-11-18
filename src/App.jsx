@@ -2,21 +2,20 @@ import { Route } from 'react-router-dom'
 import { Routes } from 'react-router-dom'
 import Home from './components/home'
 import Map from './components/map'
-import News from './components/news'
+import Signup from './components/Signup'
 import Schedule from './components/schedule'
 import Navbar from './components/navbar'
-import Contact from './components/contact'
-
+import Login from './components/Login'
 export default function App() {
   return (
     <>
     <Navbar/>
     <Routes>
-      <Route path="/Home" element = {<Home/>}/>;
+      <Route path="/" element = {<Home/>}/>;
       <Route path="/Map" element = {<Map/>}/>;
-      <Route path="/News" element = {<News/>}/>;
+      <Route path="/signup" element = {<Signup/>}/>;
       <Route path="/Schedule" element = {<Schedule/>}/>;
-      <Route path="/Contact" element = {<Contact/>}/>;
+      <Route path="/login" element = {<Login/>}/>;
     </Routes>
     </>
   )
