@@ -1,10 +1,14 @@
-import { Route, Routes } from 'react-router-dom';
-import Home from './components/home';
-import Map from './components/map';
-import News from './components/news';
-import Schedule from './components/schedule';
 
-import Contact from './components/contact';
+import { Route } from 'react-router-dom'
+import { Routes } from 'react-router-dom'
+import Home from './components/home'
+import Map from './components/map'
+import News from './components/news'
+import Schedule from './components/schedule'
+import Navbar from './components/navbar'
+import Contact from './components/contact'
+import 'react-toastify/dist/ReactToastify.css';
+
 
 export default function App() {
   return (
