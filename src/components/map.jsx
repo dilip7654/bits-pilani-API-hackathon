@@ -11,7 +11,6 @@ export default function Map() {
   return (
     <section className="bg-[#fcefef] min-h-screen flex flex-col">
       {/* Navigation */}
-      <NavHome />
 
       {/* Main Content */}
       <div className="bg-[#fcefef] p-8 flex-1">
