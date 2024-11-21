@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from "framer-motion";
 import { FaGoogle, FaApple } from "react-icons/fa";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "./Firebase"; 
+import { auth,db } from "./Firebase"; 
+import { doc, setDoc } from 'firebase/firestore'; 
 
 export default function Signup() {
   const containerVariants = {
@@ -29,6 +30,9 @@ export default function Signup() {
   };
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [birthDate, setBirthDate] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
@@ -37,10 +41,19 @@ export default function Signup() {
     setError('');
 
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      navigate('/login'); // Redirect to Home after successful signup
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      await setDoc(doc(db, 'users', user.uid), {
+        name,
+        phone,
+        birthDate, 
+        email,
+      });
+
+      navigate('/'); 
     } catch (err) {
-      setError(err.message); // Display error message
+      setError(err.message);
     }
   };
 
@@ -73,8 +86,28 @@ export default function Signup() {
               Name
             </label>
             <motion.input
-              type="Name"
+              type="text"
               id="Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+              whileFocus={{ scale: 1.02 }}
+              className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#0077b6]"
+            />
+          </motion.div>
+
+          <motion.div variants={itemVariants}>
+            <label
+              htmlFor="Name"
+              className="block text-[#03045e] font-medium mb-2"
+            >
+              Phone no
+            </label>
+            <motion.input
+              type="text"
+              id="phone"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
               required
               whileFocus={{ scale: 1.02 }}
               className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#0077b6]"
@@ -128,6 +161,8 @@ export default function Signup() {
               type="date"
               id="dob"
               name="dob"
+              value={birthDate}
+              onChange={(e) => setBirthDate(e.target.value)}
               required
               whileFocus={{ scale: 1.02 }}
               className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#0077b6]"

@@ -40,9 +40,9 @@ export default function Login() {
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      navigate('/'); // Redirect to Home after successful login
+      navigate('/'); 
     } catch (err) {
-      setError(err.message); // Display error message
+      setError(err.message); 
     }
   };
 
