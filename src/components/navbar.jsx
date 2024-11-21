@@ -1,13 +1,12 @@
 import { Link } from "react-router-dom";
 import { FaHome, FaHospitalAlt, FaCalendarAlt, FaSignInAlt, FaUserPlus } from "react-icons/fa";
 
-export default function Navbar() {
-    return (
-        <nav className="bg-gradient-to-r from-[#0077b6] to-[#00b4d8] shadow-lg ">
-            <div className="container mx-auto flex items-center justify-between h-16 px-6 lg:px-12">
-                {/* Brand Name with Animation */}
-                <div className="text-[#f8e16c] text-2xl font-bold tracking-widest hover:scale-110 transition-transform duration-300 ease-out">
-                 Lifeline Devs
+export default function Home(){
+    return(
+        <nav className="z-50">
+            <div className="h-10vh flex justify-between lg:py-5 px-20 py-20 border-b">
+                <div className="flex items-center flex-1">
+                    <h2 className="text-3xl font-bold text-red-500">Lifeline Devs</h2>
                 </div>
                 
                 {/* Navigation Links with Icons and Hover Animation */}
