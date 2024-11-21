@@ -1,11 +1,11 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from "framer-motion";
-import { FaGoogle, FaApple } from "react-icons/fa";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "./Firebase"; 
+import { FaGoogle, FaFacebook } from "react-icons/fa";
+import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { auth, googleProvider, facebookProvider } from "./Firebase"; 
 import { AuthContext } from "./AuthContext";
-import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+
 
 export default function Login() {
   const containerVariants = {
@@ -38,26 +38,31 @@ export default function Login() {
   const handleEmailLogin = async (e) => {
     e.preventDefault();
     try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
-
-      setIsAuthenticated(true);
-      navigate("/"); 
+      await signInWithEmailAndPassword(auth, email, password);
+      setIsAuthenticated(true); 
+      navigate("/");
     } catch (err) {
-      console.error("Login Error:", err.message);
+      console.error("Email Login Error:", err.message);
     }
   };
 
   const handleGoogleLogin = async () => {
-    const provider = new GoogleAuthProvider();
     try {
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-
-      setIsAuthenticated(true);
-      navigate("/"); 
+      await signInWithPopup(auth, googleProvider);
+      setIsAuthenticated(true); 
+      navigate("/");
     } catch (err) {
       console.error("Google Login Error:", err.message);
+    }
+  };
+
+  const handleFacebookLogin = async () => {
+    try {
+      await signInWithPopup(auth, facebookProvider);
+      setIsAuthenticated(true);
+      navigate("/");
+    } catch (err) {
+      console.error("Facebook Login Error:", err.message);
     }
   };
 
@@ -141,11 +146,12 @@ export default function Login() {
             <FaGoogle className="mr-2 text-[#090808]" /> Google
           </motion.button>
           <motion.button
+            onClick={handleFacebookLogin}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="flex items-center justify-center w-1/2 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#0077b6]"
           >
-            <FaApple className="mr-2 text-black" /> Apple
+            <FaFacebook className="mr-2 text-black" /> Facebook
           </motion.button>
         </motion.div>
 

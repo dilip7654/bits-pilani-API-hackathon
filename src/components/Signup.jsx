@@ -1,11 +1,11 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from 'react-router-dom';
 import { motion } from "framer-motion";
-import { FaGoogle, FaApple } from "react-icons/fa";
-import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { auth,db } from "./Firebase"; 
+import { FaGoogle, FaFacebook } from "react-icons/fa";
+import { auth, db, googleProvider, facebookProvider } from "./Firebase";
 import { doc, setDoc } from 'firebase/firestore';
 import { AuthContext } from "./AuthContext"; 
+import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 
 export default function Signup() {
   const containerVariants = {
@@ -52,16 +52,15 @@ export default function Signup() {
       });
 
       setIsAuthenticated(true); 
-      navigate("/");
+      navigate("/"); 
     } catch (err) {
       console.error("Signup Error:", err.message);
     }
   };
 
   const handleGoogleSignup = async () => {
-    const provider = new GoogleAuthProvider();
     try {
-      const result = await signInWithPopup(auth, provider);
+      const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
 
       const userDoc = doc(db, "users", user.uid);
@@ -74,13 +73,38 @@ export default function Signup() {
           birthDate: "N/A",
           createdAt: new Date().toISOString(),
         },
-        { merge: true } 
+        { merge: true }
+      );
+
+      setIsAuthenticated(true);
+      navigate("/"); 
+    } catch (err) {
+      console.error("Google Signup Error:", err.message);
+    }
+  };
+
+  const handleFacebookSignup = async () => {
+    try {
+      const result = await signInWithPopup(auth, facebookProvider);
+      const user = result.user;
+
+      const userDoc = doc(db, "users", user.uid);
+      await setDoc(
+        userDoc,
+        {
+          name: user.displayName || "Facebook User",
+          email: user.email,
+          phone: user.phoneNumber || "N/A",
+          birthDate: "N/A",
+          createdAt: new Date().toISOString(),
+        },
+        { merge: true }
       );
 
       setIsAuthenticated(true); 
-      navigate("/");
+      navigate("/"); 
     } catch (err) {
-      console.error("Google Signup Error:", err.message);
+      console.error("Facebook Signup Error:", err.message);
     }
   };
 
@@ -210,11 +234,12 @@ export default function Signup() {
               <FaGoogle className="mr-2 text-[#0a0707]" /> Google
             </motion.button>
             <motion.button
+              onClick={handleFacebookSignup}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="flex items-center justify-center w-1/2 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#0077b6]"
             >
-              <FaApple className="mr-2 text-black" /> Apple
+              <FaFacebook className="mr-2 text-black" /> Facebook
             </motion.button>
           </motion.div>
 
