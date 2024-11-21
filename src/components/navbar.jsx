@@ -33,6 +33,11 @@ export default function Navbar() {
                             <FaUserPlus /> Sign Up
                         </li>
                     </Link>
+                    <Link to="/aboutus">
+                        <li className="flex items-center gap-2 text-[#fcefef] font-medium px-4 py-1.5 rounded-lg hover:bg-[#fbb13c] hover:text-[#03045e] transition-all duration-300 ease-in-out transform hover:scale-105 cursor-pointer shadow-md hover:shadow-lg">
+                            <FaUserPlus /> About Us
+                        </li>
+                    </Link>
                 </ul>
             </div>
         </nav>
