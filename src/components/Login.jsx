@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion } from "framer-motion";
-import { FaGoogle, FaApple } from "react-icons/fa"; // Import Google and Apple icons
+import { FaGoogle, FaFacebook } from "react-icons/fa";
+import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { auth, googleProvider, facebookProvider } from "./Firebase"; 
+import { AuthContext } from "./AuthContext";
+
 
 export default function Login() {
   const containerVariants = {
@@ -25,6 +30,42 @@ export default function Login() {
     },
   };
 
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { setIsAuthenticated } = useContext(AuthContext); 
+  const navigate = useNavigate();
+
+  const handleEmailLogin = async (e) => {
+    e.preventDefault();
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      setIsAuthenticated(true); 
+      navigate("/");
+    } catch (err) {
+      console.error("Email Login Error:", err.message);
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    try {
+      await signInWithPopup(auth, googleProvider);
+      setIsAuthenticated(true); 
+      navigate("/");
+    } catch (err) {
+      console.error("Google Login Error:", err.message);
+    }
+  };
+
+  const handleFacebookLogin = async () => {
+    try {
+      await signInWithPopup(auth, facebookProvider);
+      setIsAuthenticated(true);
+      navigate("/");
+    } catch (err) {
+      console.error("Facebook Login Error:", err.message);
+    }
+  };
+
   return (
     <motion.div
       className="flex items-center justify-center min-h-screen bg-gradient-to-b from-[#90e0ef] to-[#fcefef]"
@@ -45,14 +86,15 @@ export default function Login() {
           Lifeline Devs Login
         </motion.h2>
 
-        <motion.form className="space-y-4" variants={containerVariants}>
+        <motion.form className="space-y-4" variants={containerVariants}  onSubmit={handleEmailLogin}>
           <motion.div className="space-y-2" variants={itemVariants}>
             <label className="block text-[#03045e] font-medium" htmlFor="email">
               Email:
             </label>
             <motion.input
               type="email"
-              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}d
               whileFocus={{ scale: 1.02 }}
               className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#0077b6]"
             />
@@ -67,7 +109,8 @@ export default function Login() {
             </label>
             <motion.input
               type="password"
-              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               whileFocus={{ scale: 1.02 }}
               className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#0077b6]"
             />
@@ -95,6 +138,7 @@ export default function Login() {
           variants={itemVariants}
         >
           <motion.button
+            onClick={handleGoogleLogin}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="flex items-center justify-center w-1/2 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#0077b6]"
@@ -102,11 +146,12 @@ export default function Login() {
             <FaGoogle className="mr-2 text-[#090808]" /> Google
           </motion.button>
           <motion.button
+            onClick={handleFacebookLogin}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="flex items-center justify-center w-1/2 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#0077b6]"
           >
-            <FaApple className="mr-2 text-black" /> Apple
+            <FaFacebook className="mr-2 text-black" /> Facebook
           </motion.button>
         </motion.div>
 

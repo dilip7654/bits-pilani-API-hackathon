@@ -1,4 +1,3 @@
-
 import { Route } from 'react-router-dom'
 import { Routes } from 'react-router-dom'
 import Home from './components/home'

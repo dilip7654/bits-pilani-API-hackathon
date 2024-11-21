@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useState, useContext } from "react";
+import { useNavigate } from 'react-router-dom';
 import { motion } from "framer-motion";
-import { FaGoogle, FaApple } from "react-icons/fa"; // Import Google and Apple icons
+import { FaGoogle, FaFacebook } from "react-icons/fa";
+import { auth, db, googleProvider, facebookProvider } from "./Firebase";
+import { doc, setDoc } from 'firebase/firestore';
+import { AuthContext } from "./AuthContext"; 
+import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 
 export default function Signup() {
   const containerVariants = {
@@ -24,6 +29,84 @@ export default function Signup() {
       },
     },
   };
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [birthDate, setBirthDate] = useState("");
+  const { setIsAuthenticated } = useContext(AuthContext); 
+  const navigate = useNavigate();
+
+  const handleSignup = async (e) => {
+    e.preventDefault();
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      await setDoc(doc(db, "users", user.uid), {
+        name,
+        phone,
+        birthDate,
+        email,
+        createdAt: new Date().toISOString(),
+      });
+
+      setIsAuthenticated(true); 
+      navigate("/"); 
+    } catch (err) {
+      console.error("Signup Error:", err.message);
+    }
+  };
+
+  const handleGoogleSignup = async () => {
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+      const user = result.user;
+
+      const userDoc = doc(db, "users", user.uid);
+      await setDoc(
+        userDoc,
+        {
+          name: user.displayName || "Google User",
+          email: user.email,
+          phone: user.phoneNumber || "N/A",
+          birthDate: "N/A",
+          createdAt: new Date().toISOString(),
+        },
+        { merge: true }
+      );
+
+      setIsAuthenticated(true);
+      navigate("/"); 
+    } catch (err) {
+      console.error("Google Signup Error:", err.message);
+    }
+  };
+
+  const handleFacebookSignup = async () => {
+    try {
+      const result = await signInWithPopup(auth, facebookProvider);
+      const user = result.user;
+
+      const userDoc = doc(db, "users", user.uid);
+      await setDoc(
+        userDoc,
+        {
+          name: user.displayName || "Facebook User",
+          email: user.email,
+          phone: user.phoneNumber || "N/A",
+          birthDate: "N/A",
+          createdAt: new Date().toISOString(),
+        },
+        { merge: true }
+      );
+
+      setIsAuthenticated(true); 
+      navigate("/"); 
+    } catch (err) {
+      console.error("Facebook Signup Error:", err.message);
+    }
+  };
 
   return (
     <motion.div
@@ -44,8 +127,42 @@ export default function Signup() {
         >
           Sign Up
         </motion.h1>
+      
+        <motion.form className="space-y-6" variants={containerVariants} onSubmit={handleSignup}>
+          <motion.div variants={itemVariants}>
+            <label
+              htmlFor="Name"
+              className="block text-[#03045e] font-medium mb-2"
+            >
+              Name
+            </label>
+            <motion.input
+              type="text"
+              id="Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              whileFocus={{ scale: 1.02 }}
+              className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#0077b6]"
+            />
+          </motion.div>
 
-        <motion.form className="space-y-6" variants={containerVariants}>
+          <motion.div variants={itemVariants}>
+            <label
+              htmlFor="Name"
+              className="block text-[#03045e] font-medium mb-2"
+            >
+              Phone no
+            </label>
+            <motion.input
+              type="text"
+              id="phone"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              whileFocus={{ scale: 1.02 }}
+              className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#0077b6]"
+            />
+          </motion.div>
+
           <motion.div variants={itemVariants}>
             <label
               htmlFor="email"
@@ -56,7 +173,8 @@ export default function Signup() {
             <motion.input
               type="email"
               id="email"
-              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               whileFocus={{ scale: 1.02 }}
               className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#0077b6]"
             />
@@ -72,7 +190,8 @@ export default function Signup() {
             <motion.input
               type="password"
               id="password"
-              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               whileFocus={{ scale: 1.02 }}
               className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#0077b6]"
             />
@@ -89,7 +208,8 @@ export default function Signup() {
               type="date"
               id="dob"
               name="dob"
-              required
+              value={birthDate}
+              onChange={(e) => setBirthDate(e.target.value)}
               whileFocus={{ scale: 1.02 }}
               className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#0077b6]"
             />
@@ -106,6 +226,7 @@ export default function Signup() {
             variants={itemVariants}
           >
             <motion.button
+              onClick={handleGoogleSignup}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="flex items-center justify-center w-1/2 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#0077b6]"
@@ -113,11 +234,12 @@ export default function Signup() {
               <FaGoogle className="mr-2 text-[#0a0707]" /> Google
             </motion.button>
             <motion.button
+              onClick={handleFacebookSignup}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="flex items-center justify-center w-1/2 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#0077b6]"
             >
-              <FaApple className="mr-2 text-black" /> Apple
+              <FaFacebook className="mr-2 text-black" /> Facebook
             </motion.button>
           </motion.div>
 
