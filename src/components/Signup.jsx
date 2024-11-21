@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from "react";
 import { useNavigate } from 'react-router-dom';
 import { motion } from "framer-motion";
 import { FaGoogle, FaApple } from "react-icons/fa";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth,db } from "./Firebase"; 
-import { doc, setDoc } from 'firebase/firestore'; 
+import { doc, setDoc } from 'firebase/firestore';
+import { AuthContext } from "./AuthContext"; 
 
 export default function Signup() {
   const containerVariants = {
@@ -28,32 +29,58 @@ export default function Signup() {
       },
     },
   };
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
-  const [birthDate, setBirthDate] = useState('');
-  const [error, setError] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [birthDate, setBirthDate] = useState("");
+  const { setIsAuthenticated } = useContext(AuthContext); 
   const navigate = useNavigate();
 
   const handleSignup = async (e) => {
     e.preventDefault();
-    setError('');
-
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
-      await setDoc(doc(db, 'users', user.uid), {
+      await setDoc(doc(db, "users", user.uid), {
         name,
         phone,
-        birthDate, 
+        birthDate,
         email,
+        createdAt: new Date().toISOString(),
       });
 
-      navigate('/'); 
+      setIsAuthenticated(true); 
+      navigate("/");
     } catch (err) {
-      setError(err.message);
+      console.error("Signup Error:", err.message);
+    }
+  };
+
+  const handleGoogleSignup = async () => {
+    const provider = new GoogleAuthProvider();
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+
+      const userDoc = doc(db, "users", user.uid);
+      await setDoc(
+        userDoc,
+        {
+          name: user.displayName || "Google User",
+          email: user.email,
+          phone: user.phoneNumber || "N/A",
+          birthDate: "N/A",
+          createdAt: new Date().toISOString(),
+        },
+        { merge: true } 
+      );
+
+      setIsAuthenticated(true); 
+      navigate("/");
+    } catch (err) {
+      console.error("Google Signup Error:", err.message);
     }
   };
 
@@ -76,7 +103,7 @@ export default function Signup() {
         >
           Sign Up
         </motion.h1>
-        {error && <p className="text-red-500 text-center">{error}</p>}
+      
         <motion.form className="space-y-6" variants={containerVariants} onSubmit={handleSignup}>
           <motion.div variants={itemVariants}>
             <label
@@ -90,7 +117,6 @@ export default function Signup() {
               id="Name"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              required
               whileFocus={{ scale: 1.02 }}
               className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#0077b6]"
             />
@@ -108,7 +134,6 @@ export default function Signup() {
               id="phone"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
-              required
               whileFocus={{ scale: 1.02 }}
               className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#0077b6]"
             />
@@ -126,7 +151,6 @@ export default function Signup() {
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              required
               whileFocus={{ scale: 1.02 }}
               className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#0077b6]"
             />
@@ -144,7 +168,6 @@ export default function Signup() {
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              required
               whileFocus={{ scale: 1.02 }}
               className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#0077b6]"
             />
@@ -163,7 +186,6 @@ export default function Signup() {
               name="dob"
               value={birthDate}
               onChange={(e) => setBirthDate(e.target.value)}
-              required
               whileFocus={{ scale: 1.02 }}
               className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#0077b6]"
             />
@@ -180,6 +202,7 @@ export default function Signup() {
             variants={itemVariants}
           >
             <motion.button
+              onClick={handleGoogleSignup}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="flex items-center justify-center w-1/2 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#0077b6]"

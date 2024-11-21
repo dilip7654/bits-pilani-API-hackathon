@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from "framer-motion";
 import { FaGoogle, FaApple } from "react-icons/fa";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "./Firebase"; 
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { AuthContext } from "./AuthContext";
+import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
 export default function Login() {
   const containerVariants = {
@@ -29,20 +30,34 @@ export default function Login() {
     },
   };
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { setIsAuthenticated } = useContext(AuthContext); 
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
+  const handleEmailLogin = async (e) => {
     e.preventDefault();
-    setError('');
-
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      navigate('/'); 
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      setIsAuthenticated(true);
+      navigate("/"); 
     } catch (err) {
-      setError(err.message); 
+      console.error("Login Error:", err.message);
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    const provider = new GoogleAuthProvider();
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+
+      setIsAuthenticated(true);
+      navigate("/"); 
+    } catch (err) {
+      console.error("Google Login Error:", err.message);
     }
   };
 
@@ -66,8 +81,7 @@ export default function Login() {
           Lifeline Devs Login
         </motion.h2>
 
-        {error && <p className="text-red-500 text-center">{error}</p>}
-        <motion.form className="space-y-4" variants={containerVariants}  onSubmit={handleLogin}>
+        <motion.form className="space-y-4" variants={containerVariants}  onSubmit={handleEmailLogin}>
           <motion.div className="space-y-2" variants={itemVariants}>
             <label className="block text-[#03045e] font-medium" htmlFor="email">
               Email:
@@ -75,8 +89,7 @@ export default function Login() {
             <motion.input
               type="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
+              onChange={(e) => setEmail(e.target.value)}d
               whileFocus={{ scale: 1.02 }}
               className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#0077b6]"
             />
@@ -93,7 +106,6 @@ export default function Login() {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              required
               whileFocus={{ scale: 1.02 }}
               className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#0077b6]"
             />
@@ -121,6 +133,7 @@ export default function Login() {
           variants={itemVariants}
         >
           <motion.button
+            onClick={handleGoogleLogin}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="flex items-center justify-center w-1/2 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#0077b6]"
