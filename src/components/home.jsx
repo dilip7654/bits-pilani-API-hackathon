@@ -1,7 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Card from "./cards";
-
 import { FaStethoscope, FaHospitalUser } from "react-icons/fa";
 import { SlCalender } from "react-icons/sl";
 import { FaLocationDot } from "react-icons/fa6";
@@ -54,44 +53,71 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50">
-      <main className="container mx-auto px-4 py-12">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-[#fbf5dc]">
+      
+      <main className="container mx-auto px-4 py-9">
         {/* Hero Section */}
         <motion.section
-          className="mb-24"
+          className="mb-24 relative h-[85vh] flex items-center justify-center"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <div className="flex flex-col md:flex-row items-center justify-between">
-            <div className="md:w-1/2 mb-8 ml-10 md:mb-0 space-y-8">
+          {/* Background Image */}
+          <div
+            className="absolute inset-0 bg-cover bg-center rounded-3xl shadow-2xl"
+            style={{
+              backgroundImage: `url(${healthcareImage})`,
+              backgroundPosition: "center ",
+              backgroundSize: "cover",
+              backgroundAttachment: "fixed", 
+              zIndex: 1, 
+            }}
+          >
+            {/* Overlay Gradient */}
+            <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent rounded-3xl"></div>
+          </div>
+
+          <div className="relative z-10 flex flex-col md:flex-row items-center justify-between w-full px-4 py-8">
+            <div className="md:w-1/2 mb-8 md:mb-0 space-y-8">
               <motion.h1
                 style={{
                   fontFamily:
                     'gt-super, Georgia, Cambria, "Times New Roman", Times, serif',
                 }}
-                className="text-7xl leading-72 font-bold mb-4 bg-gradient-to-r from-[#0077b6] to-[#00b4d8] bg-clip-text text-transparent"
+                className="relative text-7xl leading-[5rem] font-bold mb-4 bg-gradient-to-r from-[#00b4d8] to-[#aff2ff] bg-clip-text text-transparent"
                 initial={{ opacity: 0, x: -50 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
               >
+                <span className="absolute -z-10 left-1 top-1 text-black/60 blur-[2px] backdrop-blur-[1px] rounded-[55px] ">
+                  Your Health,
+                  <br />
+                  Our Priority
+                </span>
                 Your Health,
                 <br />
                 Our Priority
               </motion.h1>
 
               <motion.p
-                className="text-x text-gray-600 leading-relaxed"
+                className="text-xl text-white leading-relaxed relative"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
               >
+                <span className="absolute -z-10 left-1 top-1 text-black/60 blur-[1px]">
+                  Experience seamless healthcare management with Lifeline Devs.
+                  Book appointments, find specialists, and access your records
+                  with ease.
+                </span>
                 Experience seamless healthcare management with Lifeline Devs.
                 Book appointments, find specialists, and access your records
                 with ease.
               </motion.p>
+
               <motion.button
-                className="bg-[#fbb13c] hover:bg-[#f8e16c] text-[#03045e] font-bold rounded-xl text-xl px-8 py-4 shadow-lg transform transition-all duration-300"
+                className="bg-[#fbb13c] hover:bg-[#f8e16c] text-[#03045e] font-bold rounded-xl text-xl px-7 py-3 shadow-lg transform transition-all duration-300"
                 whileHover={{
                   scale: 1.05,
                   boxShadow: "0 20px 25px -5px rgb(0 0 0 / 0.1)",
@@ -101,18 +127,6 @@ export default function Home() {
                 Get Started
               </motion.button>
             </div>
-            <motion.div
-              className="md:w-1/2"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            >
-              <img
-                src={healthcareImage}
-                alt="Healthcare Illustration"
-                className="w-full h-auto rounded-3xl shadow-2xl transform hover:scale-105 transition-transform duration-500"
-              />
-            </motion.div>
           </div>
         </motion.section>
 
@@ -124,6 +138,10 @@ export default function Home() {
           animate="visible"
         >
           <motion.h2
+          style={{
+            fontFamily:
+              'gt-super, Georgia, Cambria, "Times New Roman", Times, serif',
+          }}
             className="text-4xl font-bold mb-12 text-center bg-gradient-to-r from-[#0077b6] to-[#00b4d8] bg-clip-text text-transparent"
             variants={itemVariants}
           >
@@ -151,6 +169,10 @@ export default function Home() {
           animate="visible"
         >
           <motion.h2
+          style={{
+            fontFamily:
+              'gt-super, Georgia, Cambria, "Times New Roman", Times, serif',
+          }}
             className="text-4xl font-bold mb-12 text-center bg-gradient-to-r from-[#0077b6] to-[#00b4d8] bg-clip-text text-transparent"
             variants={itemVariants}
           >
@@ -200,14 +222,20 @@ export default function Home() {
             </Card>
           </div>
         </motion.section>
+
         {/* Symptom Checker Section */}
-        <motion.section
+                {/* Symptom Checker Section */}
+                <motion.section
           className="mb-24"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
         >
           <motion.h2
+          style={{
+            fontFamily:
+              'gt-super, Georgia, Cambria, "Times New Roman", Times, serif',
+          }}
             className="text-4xl font-bold mb-12 text-center bg-gradient-to-r from-[#0077b6] to-[#00b4d8] bg-clip-text text-transparent"
             variants={itemVariants}
           >
@@ -254,12 +282,16 @@ export default function Home() {
           animate="visible"
         >
           <motion.h2
+          style={{
+            fontFamily:
+              'gt-super, Georgia, Cambria, "Times New Roman", Times, serif',
+          }}
             className="text-4xl font-bold mb-12 text-center bg-gradient-to-r from-[#0077b6] to-[#00b4d8] bg-clip-text text-transparent"
             variants={itemVariants}
           >
             Get in Touch
           </motion.h2>
-          <Card className="bg-blue-100  shadow-xl rounded-xl border border-blue-100">
+          <Card className="bg-sky-200 shadow-xl rounded-xl border border-blue-100">
             <div className="grid md:grid-cols-2 gap-12 p-8">
               <motion.div className="space-y-6" variants={itemVariants}>
                 <h3 className="text-2xl font-bold text-[#03045e]">
@@ -336,4 +368,5 @@ export default function Home() {
     </div>
   );
 }
+
 

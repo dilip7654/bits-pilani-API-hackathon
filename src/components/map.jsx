@@ -3,22 +3,18 @@ import Heading from './Heading';
 import Card from './Card';
 import myimg from '../assets/poonavala.jpeg';
 import SearchBar from './patient-interface/Searchbar';
-import NavHome from './mapPage/NavHome';
 
 export default function Map() {
   const items = [""];
 
   return (
-    <section className="bg-[#fcefef] min-h-screen flex flex-col">
-      {/* Navigation */}
-      <NavHome />
-
+    <section className="min-h-screen bg-gradient-to-b from-blue-50 to-[#fbf5dc] flex flex-col">
       {/* Main Content */}
-      <div className="bg-[#fcefef] p-8 flex-1">
+      <div className="p-8 flex-1">
 
         {/* Header Section */}
-        <div className="text_map_page1 w-full h-40 bg-[#90e0ef] flex items-center justify-center shadow-lg rounded-lg mb-8 transition duration-300 hover:shadow-xl">
-          <p className="text_map_page2 text-center text-3xl font-semibold text-[#03045e]">
+        <div className="w-full h-40 bg-gradient-to-r from-[#0077b6] to-[#00b4d8] flex items-center justify-center shadow-lg rounded-lg mb-8 transition duration-300 hover:shadow-xl">
+          <p className="text-center text-3xl font-semibold text-white">
             The Page is Working
           </p>
         </div>
@@ -30,16 +26,18 @@ export default function Map() {
 
         {/* Cards Section */}
         <div className="flex justify-center flex-wrap gap-8 mb-8">
-          <Card name="card1" image={myimg} className="bg-[#90e0ef] text-[#03045e] p-6 shadow-lg rounded-lg h-[200px]" />
-          <Card name="card2" image={myimg} className="bg-[#90e0ef] text-[#03045e] p-6 shadow-lg rounded-lg h-[200px]" />
-          <Card name="card3" image={myimg} className="bg-[#90e0ef] text-[#03045e] p-6 shadow-lg rounded-lg h-[200px]" />
-          <Card name="card4" image={myimg} className="bg-[#90e0ef] text-[#03045e] p-6 shadow-lg rounded-lg h-[200px]" />
-          <Card name="card5" image={myimg} className="bg-[#90e0ef] text-[#03045e] p-6 shadow-lg rounded-lg h-[200px]" />
+          <Card name="card1" image={myimg} className="bg-gradient-to-r from-[#00b4d8] to-[#aff2ff] text-[#03045e] p-6 shadow-lg rounded-lg h-[200px]" />
+          <Card name="card2" image={myimg} className="bg-gradient-to-r from-[#00b4d8] to-[#aff2ff] text-[#03045e] p-6 shadow-lg rounded-lg h-[200px]" />
+          <Card name="card3" image={myimg} className="bg-gradient-to-r from-[#00b4d8] to-[#aff2ff] text-[#03045e] p-6 shadow-lg rounded-lg h-[200px]" />
+          <Card name="card4" image={myimg} className="bg-gradient-to-r from-[#00b4d8] to-[#aff2ff] text-[#03045e] p-6 shadow-lg rounded-lg h-[200px]" />
+          <Card name="card5" image={myimg} className="bg-gradient-to-r from-[#00b4d8] to-[#aff2ff] text-[#03045e] p-6 shadow-lg rounded-lg h-[200px]" />
         </div>
 
         {/* Search Section */}
-        <div className="App p-4 bg-[#fcefef] shadow-lg rounded-lg transition duration-300 hover:shadow-xl">
-          <h1 className="text-3xl font-bold text-center mb-6 text-[#0077b6]">
+        <div className="App p-4 bg-[#fbf5dc] rounded-lg transition duration-300">
+          <h1 className="text-3xl font-bold text-center mb-6 text-[#0077b6]" style={{
+            fontFamily: 'gt-super, Georgia, Cambria, "Times New Roman", Times, serif',
+          }}>
             Search For Nearby Hospital
           </h1>
           <div className="flex justify-center">
@@ -47,14 +45,6 @@ export default function Map() {
           </div>
         </div>
       </div>
-
-      {/* Footer or Additional Content */}
-      <div className="bg-[#f8e16c] h-40 flex items-center justify-center mt-8 rounded-lg shadow-lg transition duration-300 hover:shadow-xl">
-        <p className="text-[#03045e] text-xl font-medium">
-          .................................................
-        </p>
-      </div>
     </section>
   );
 }
-
