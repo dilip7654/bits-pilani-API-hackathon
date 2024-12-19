@@ -4,6 +4,7 @@ import Card from './Card';
 import myimg from '../assets/poonavala.jpeg';
 import SearchBar from './patient-interface/Searchbar';
 import NavHome from './mapPage/NavHome';
+import Footer from './patient-interface/Footer';
 
 export default function Map() {
   const items = [""];
@@ -18,7 +19,7 @@ export default function Map() {
         {/* Header Section */}
         <div className="text_map_page1 w-full h-40 bg-[#90e0ef] flex items-center justify-center shadow-lg rounded-lg mb-8 transition duration-300 hover:shadow-xl">
           <p className="text_map_page2 text-center text-3xl font-semibold text-[#03045e]">
-            The Page is Working
+           The Map is embedded here!!!!
           </p>
         </div>
 
@@ -29,11 +30,11 @@ export default function Map() {
 
         {/* Cards Section */}
         <div className="flex justify-center flex-wrap gap-8 mb-8">
-          <Card name="card1" image={myimg} className="bg-[#90e0ef] text-[#03045e] p-6 shadow-lg rounded-lg h-[200px]" />
-          <Card name="card2" image={myimg} className="bg-[#90e0ef] text-[#03045e] p-6 shadow-lg rounded-lg h-[200px]" />
-          <Card name="card3" image={myimg} className="bg-[#90e0ef] text-[#03045e] p-6 shadow-lg rounded-lg h-[200px]" />
-          <Card name="card4" image={myimg} className="bg-[#90e0ef] text-[#03045e] p-6 shadow-lg rounded-lg h-[200px]" />
-          <Card name="card5" image={myimg} className="bg-[#90e0ef] text-[#03045e] p-6 shadow-lg rounded-lg h-[200px]" />
+          <Card name="hospital1" image={myimg} className="bg-[#90e0ef] text-[#03045e] p-6 shadow-lg rounded-lg h-[200px]" />
+          <Card name="hospital2" image={myimg} className="bg-[#90e0ef] text-[#03045e] p-6 shadow-lg rounded-lg h-[200px]" />
+          <Card name="hospital3" image={myimg} className="bg-[#90e0ef] text-[#03045e] p-6 shadow-lg rounded-lg h-[200px]" />
+          <Card name="hospital4" image={myimg} className="bg-[#90e0ef] text-[#03045e] p-6 shadow-lg rounded-lg h-[200px]" />
+          <Card name="chospital5" image={myimg} className="bg-[#90e0ef] text-[#03045e] p-6 shadow-lg rounded-lg h-[200px]" />
         </div>
 
         {/* Search Section */}
@@ -48,11 +49,7 @@ export default function Map() {
       </div>
 
       {/* Footer or Additional Content */}
-      <div className="bg-[#f8e16c] h-40 flex items-center justify-center mt-8 rounded-lg shadow-lg transition duration-300 hover:shadow-xl">
-        <p className="text-[#03045e] text-xl font-medium">
-          .................................................
-        </p>
-      </div>
+      <Footer className="mt-36"/>
     </section>
   );
 }

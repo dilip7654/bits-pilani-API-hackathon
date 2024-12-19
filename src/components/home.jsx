@@ -9,6 +9,8 @@ import { FaEnvelope } from "react-icons/fa";
 import { FaPhone } from "react-icons/fa";
 import { RiHealthBookFill } from "react-icons/ri";
 import healthcareImage from "../assets/image.jpeg";
+import Footer from "./patient-interface/Footer";
+
 
 export default function Home() {
   const services = [
@@ -333,7 +335,8 @@ export default function Home() {
           </Card>
         </motion.section>
       </main>
-    </div>
+      <Footer/>
+     </div>
   );
 }
 
