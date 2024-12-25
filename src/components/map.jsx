@@ -1,15 +1,5 @@
-<<<<<<< HEAD
-import React from 'react';
-import Heading from './Heading';
-import Card from './Card';
-import myimg from '../assets/poonavala.jpeg';
-import SearchBar from './patient-interface/Searchbar';
-import NavHome from './mapPage/NavHome';
-import Footer from './patient-interface/Footer';
-=======
-import { MapContainer, TileLayer } from "react-leaflet";
-import "leaflet/dist/leaflet.css";
->>>>>>> 07e333a6c5ca80b1d8c7424bdc93b915538cff70
+// import { MapContainer, TileLayer } from "react-leaflet";
+// import "leaflet/dist/leaflet.css";
 
 const TestMap = () => {
   const userLocation = { lat: 40.7128, lng: -74.006 }; // Example location (New York City)
