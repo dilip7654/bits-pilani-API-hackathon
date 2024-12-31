@@ -2,7 +2,7 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="bg-gradient-to-t from-[#90e0ef] to-[#fdf4d1] text-[#03045e] py-10">
+    <footer className="bg-gradient-to-t from-[#fdf4d1] to-[#90e0ef]  text-[#03045e] py-10">
       <div className="max-w-7xl mx-auto px-6 md:px-8 grid grid-cols-1 md:grid-cols-3 gap-8">
         {/* Left Section */}
         <div className="flex flex-col items-center md:items-start">
