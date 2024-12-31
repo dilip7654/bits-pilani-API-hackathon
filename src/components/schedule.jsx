@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ProgressIndicator from './ProgressIndicator'; // Ensure the path is correct
+import ProgressIndicator from './ProgressIndicator'; 
 
 function ScheduleAppointment() {
   const [step, setStep] = useState(1);
