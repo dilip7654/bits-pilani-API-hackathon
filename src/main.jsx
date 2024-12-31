@@ -7,13 +7,16 @@ import {BrowserRouter} from "react-router-dom"
 import { Route } from 'react-router-dom'
 import { AuthProvider } from "./components/AuthContext";
 import ReactDOM from "react-dom/client";
+import { AppointmentProvider } from './components/AppointmentContext'
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <StrictMode>
     <BrowserRouter>
     <AuthProvider>
+    <AppointmentProvider>
         <App />
+        </AppointmentProvider>
       </AuthProvider>
     </BrowserRouter>
   </StrictMode>,

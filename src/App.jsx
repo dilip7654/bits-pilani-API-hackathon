@@ -10,20 +10,23 @@ import 'react-toastify/dist/ReactToastify.css';
 import Login from './components/Login'
 import AboutUs from './components/aboutus';
 import Dashboard from './components/Dashboard'
-
+import UserInterFace from './components/PatientInterface/Dashbord'
+import PatientData from './components/PatientInterface/PatientData'
 export default function App() {
   return (
     <>
     <Navbar/>
     <Routes>
       <Route path="/" element = {<Home/>}/>;
-      <Route path="/Map" element = {<Map/>}/>;
+      {/* <Route path="/Map" element = {<Map/>}/>; */}
       <Route path="/signup" element = {<Signup/>}/>;
       <Route path="/Schedule" element = {<Schedule/>}/>;
       <Route path="/login" element = {<Login/>}/>;
       <Route path="/Contact" element={<Contact />} />
       <Route path="/aboutus" element={<AboutUs />} />
       <Route path="/dashboard" element={<Dashboard />} />
+      <Route path='/UIF' element={<UserInterFace/>}/>
+      <Route path='/pdata' element={<PatientData/>}/>
     </Routes>
 
     </>
