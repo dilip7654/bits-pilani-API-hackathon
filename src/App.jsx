@@ -9,7 +9,7 @@ import Contact from './components/contact'
 import 'react-toastify/dist/ReactToastify.css';
 import Login from './components/Login'
 import AboutUs from './components/aboutus';
-import Dashboard from './components/Dashboard'
+// import Dashboard from './components/Patientinterface/Dashboard'
 import UserInterFace from './components/PatientInterface/Dashbord'
 import PatientData from './components/PatientInterface/PatientData'
 export default function App() {
@@ -24,7 +24,7 @@ export default function App() {
       <Route path="/login" element = {<Login/>}/>;
       <Route path="/Contact" element={<Contact />} />
       <Route path="/aboutus" element={<AboutUs />} />
-      <Route path="/dashboard" element={<Dashboard />} />
+      {/* <Route path="/dashboard" element={<Dashbord />} /> */}
       <Route path='/UIF' element={<UserInterFace/>}/>
       <Route path='/pdata' element={<PatientData/>}/>
     </Routes>
