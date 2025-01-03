@@ -8,7 +8,7 @@ import {
   Settings, 
   Heart 
 } from 'lucide-react';
-import ScheduleAppointment from '../schedule';
+//  import ScheduleAppointment from '../schedule';
 
 const Dashboard = () => (
   <div className="p-6">

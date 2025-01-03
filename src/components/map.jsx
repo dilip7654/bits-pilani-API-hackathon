@@ -1,8 +1,12 @@
-// import { MapContainer, TileLayer } from "react-leaflet";
-// import "leaflet/dist/leaflet.css";
+import React from 'react';
+import Heading from './Heading';
+import Card from './Card';
+import myimg from '../assets/poonavala.jpeg';
+import SearchBar from './patient-interface/Searchbar';
+import NavHome from './mapPage/NavHome';
 
-const TestMap = () => {
-  const userLocation = { lat: 40.7128, lng: -74.006 }; // Example location (New York City)
+export default function Map() {
+  const items = [""];
 
   return (
     <section className="bg-[#fcefef] min-h-screen flex flex-col">
@@ -20,7 +24,7 @@ const TestMap = () => {
 
         {/* Heading Component */}
         <div className="text-center mb-8">
-          {/* <Heading /> */}
+          <Heading />
         </div>
 
         {/* Cards Section */}
@@ -47,6 +51,4 @@ const TestMap = () => {
       <Footer className="mt-36"/>
     </section>
   );
-};
-
-export default TestMap;
+}
