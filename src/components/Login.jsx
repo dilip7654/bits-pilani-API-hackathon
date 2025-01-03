@@ -165,6 +165,17 @@ export default function Login() {
             Create an account
           </motion.a>
         </motion.p>
+
+        <motion.p className="text-center mt-4 text-sm" variants={itemVariants}>
+  <motion.a
+    href="/forgot-password"
+    whileHover={{ scale: 1.1 }}
+    className="font-semibold text-[#0077b6] hover:underline"
+  >
+    Forgot Password?
+  </motion.a>
+</motion.p>
+
       </motion.div>
     </motion.div>
   );
