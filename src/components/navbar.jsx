@@ -6,7 +6,7 @@ export default function Navbar() {
         <nav className="bg-gradient-to-r from-[#0077b6] to-[#00b4d8] shadow-lg">
             <div className="container mx-auto flex items-center justify-between h-16 px-6 lg:px-12">
                 {/* Brand Name with Animation */}
-                <Link to="/Home">
+                <Link to="/">
                 <div className="text-[#f8e16c] text-2xl font-bold tracking-widest hover:scale-110 transition-transform duration-300 ease-out">
                     Lifeline Devs
                 </div>
@@ -29,7 +29,7 @@ export default function Navbar() {
                             <FaEnvelope /> Contact Us
                         </li>
                     </Link>
-                    <Link to="/About">
+                    <Link to="/Aboutus">
                         <li className="flex items-center gap-2 text-[#fcefef] font-medium px-1 py-1.5 rounded-lg hover:bg-[#fbb13c] hover:text-[#03045e] transition-all duration-300 ease-in-out transform hover:scale-105 cursor-pointer shadow-md hover:shadow-lg">
                             <FaInfoCircle /> About Us
                         </li>

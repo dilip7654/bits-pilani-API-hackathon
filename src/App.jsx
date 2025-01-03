@@ -12,7 +12,7 @@ import ForgotPassword from './components/forgetpassword';
 // import Dashboard from './components/Patientinterface/Dashboard'
 import UserInterFace from './components/PatientInterface/Dashbord'
 import PatientData from './components/PatientInterface/PatientData'
-import '@fortawesome/fontawesome-free/css/all.min.css';
+// import '@fortawesome/fontawesome-free/css/all.min.css';
 import Footer from './components/Footer';
 export default function App() {
   return (
