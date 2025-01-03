@@ -1,5 +1,4 @@
-import { Route } from 'react-router-dom';
-import { Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import Home from './components/home';
 import Map from './components/map';
 import Signup from './components/Signup';
@@ -9,7 +8,6 @@ import Contact from './components/contact';
 import 'react-toastify/dist/ReactToastify.css';
 import Login from './components/Login';
 import AboutUs from './components/aboutus';
-import ForgotPassword from './components/forgetpassword'; // Import the ForgotPassword component
 
 export default function App() {
   return (
@@ -23,7 +21,6 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/Contact" element={<Contact />} />
         <Route path="/aboutus" element={<AboutUs />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} /> {/* Add this route */}
       </Routes>
     </>
   );

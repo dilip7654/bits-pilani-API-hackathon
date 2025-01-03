@@ -314,8 +314,6 @@ const Home = () => {
           </a>
         </div>
       </motion.section>
-    </div>
-  );
-};
 
-export default Home;
+
+export default Home
