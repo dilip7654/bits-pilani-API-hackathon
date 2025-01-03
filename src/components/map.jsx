@@ -85,6 +85,7 @@ export default function Map() {
   ];
 
   return (
+
     <div className="min-h-screen bg-gradient-to-b from-[#fdf4d1] via-[#fcefef] to-[#90e0ef] pb-72">
       <div className="max-w-7xl mx-auto p-6">
         {/* Hero Section */}
@@ -126,6 +127,7 @@ export default function Map() {
           <StatCard icon={Users} label="Doctors" value="500+ Active" />
         </div>
 
+
         {/* Main Content */}
         <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
           {/* Tab Navigation */}
@@ -147,6 +149,7 @@ export default function Map() {
               Map View
             </button>
           </div>
+
 
           <div className="p-6">
             {activeTab === 'list' ? (
@@ -173,5 +176,6 @@ export default function Map() {
         </div>
       </div>
     </div>
+
   );
 }

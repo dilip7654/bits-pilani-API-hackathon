@@ -8,51 +8,69 @@ import { FaEnvelope } from "react-icons/fa";
 import { FaPhone } from "react-icons/fa";
 import { RiHealthBookFill } from "react-icons/ri";
 import healthcareImage from "../assets/image.jpeg";
+import { motion } from "framer-motion"; // Import Framer Motion
+import BackgroundVideo from "./bgvideo"; // Ensure correct import path for BackgroundVideo
 
-export default function Home() {
-  const services = [
-    {
-      icon: <FaLocationDot />,
-      title: "Nearby Hospital Locater",
-      description:
-        "Find the closest healthcare facilities with real-time availability updates",
-    },
-    {
-      icon: <RiHealthBookFill />,
-      title: "Health Records",
-      description:
-        "Secure, digital access to your complete medical history and test results",
-    },
-    {
-      icon: <SlCalender />,
-      title: "Scheduling Appointments",
-      description:
-        "Book and manage appointments with your healthcare providers instantly",
-    },
-  ];
+// Importing images
+import patientImage from "../assets/patientmanagement.jpg";
+import emergencyImage from "../assets/emergency.jpg";
+import consultingImage from "../assets/consulting.jpg";
+import locationImage from "../assets/locater.jpg";
+import scheduleImage from "../assets/scheduling.jpg";
+import qualityImage from "../assets/qualitydiagno.jpg";
+import expertImage from "../assets/expertconsultation.jpg";
+import supportImage from "../assets/support.jpg";
+import bookingImage from "../assets/booking.png";
+import recordImage from "../assets/record.png";
+import treatedImage from "../assets/treated.png";
+import healthImage from "../assets/healthcare.jpg";
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.3,
-      },
-    },
+
+// Core Services Data
+const services = [
+  {
+    title: "Patient Management",
+    description:
+      "Provide users with the ability to access their health records.",
+    image: patientImage,
+  },
+  {
+    title: "Emergency Services",
+    description: "Round-the-clock access to emergency care.",
+    image: emergencyImage,
+  },
+  {
+    title: "Nearby Hospital Locator",
+    description: "Tracks and displays nearby hospitals on an interactive map.",
+    image: locationImage,
+  },
+  {
+    title: "Telehealth",
+    description: "Virtual consultations with our top specialists.",
+    image: consultingImage,
+  },
+  {
+    title: "Appointment Scheduling",
+    description:
+      "Feature that allows users to book, reschedule, or cancel appointments with hospitals.",
+    image: scheduleImage,
+  },
+];
+
+const Home = () => {
+  // Framer Motion Variants
+  const fadeInFromLeft = {
+    hidden: { opacity: 0, x: -100 },
+    visible: { opacity: 1, x: 0 },
   };
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-      },
-    },
+  const fadeInFromBottom = {
+    hidden: { opacity: 0, y: 100 },
+    visible: { opacity: 1, y: 0 },
   };
 
   return (
+
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-[#fbf5dc]">
       
       <main className="container mx-auto px-4 py-9">
@@ -130,13 +148,15 @@ export default function Home() {
           </div>
         </motion.section>
 
-        {/* Services Section */}
-        <motion.section
-          className="mb-24"
-          variants={containerVariants}
+
+        <motion.div
+          className="relative z-10 flex flex-col items-center justify-center h-full text-center px-4"
           initial="hidden"
           animate="visible"
+          transition={{ duration: 1 }}
+          variants={fadeInFromLeft}
         >
+
           <motion.h2
           style={{
             fontFamily:
@@ -148,18 +168,33 @@ export default function Home() {
             Our Services
           </motion.h2>
           <div className="grid md:grid-cols-3 gap-8">
+n
             {services.map((service, index) => (
-              <Card
-                key={index}
-                icon={service.icon}
-                title={service.title}
-                description={service.description}
-                className="bg-[#f8e16c] backdrop-blur-lg bg-opacity-80 text-[#03045e] shadow-xl rounded-xl border border-blue-100 h-[250px]"
-                headerClass="text-[#03045e]"
-              />
+              <motion.div
+              key={index}
+              className="w-[300px] bg-white rounded-lg shadow-lg p-6 text-center group hover:scale-105 transition-transform duration-500"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.2, duration: 0.8 }}
+              variants={fadeInFromBottom}
+            >
+              <div className="overflow-hidden"> {/* This div ensures the image stays within bounds */}
+                <img
+                  src={service.image}
+                  alt={service.title}
+                  className="rounded-t-lg mb-4 object-cover w-full h-64 transition-transform duration-300 group-hover:scale-110" 
+                />
+              </div>
+              <h3 className="text-2xl font-bold text-[#03045e]">{service.title}</h3>
+              <p className="text-[#03045e]">{service.description}</p>
+            </motion.div>
+            
             ))}
           </div>
-        </motion.section>
+        </div>
+      </motion.section>
+
 
         {/* Why Choose Us Section */}
         <motion.section
@@ -183,44 +218,138 @@ export default function Home() {
               className="bg-gradient-to-br from-[#0077b6] to-[#00b4d8] text-white p-8 shadow-xl rounded-xl w-[90%] md:w-[80%]"
               contentClass="grid grid-cols-1 md:grid-cols-2 gap-8"
             >
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                className="p-6 bg-white/10 rounded-lg"
-              >
-                <h3 className="text-xl font-bold mb-2 flex items-center">
-                  <FaLocationDot className="mr-2" /> Convenient Locations
-                </h3>
-                <p>Multiple facilities across the city for easy access.</p>
-              </motion.div>
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                className="p-6 bg-white/10 rounded-lg"
-              >
-                <h3 className="text-xl font-bold mb-2 flex items-center">
-                  <FaHospitalUser className="mr-2" /> Expert Doctors
-                </h3>
-                <p>Highly qualified and experienced medical professionals.</p>
-              </motion.div>
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                className="p-6 bg-white/10 rounded-lg"
-              >
-                <h3 className="text-xl font-bold mb-2 flex items-center">
-                  <SlCalender className="mr-2" /> 24/7 Availability
-                </h3>
-                <p>Round-the-clock service for your health needs.</p>
-              </motion.div>
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                className="p-6 bg-white/10 rounded-lg"
-              >
-                <h3 className="text-xl font-bold mb-2 flex items-center">
-                  <FaStethoscope className="mr-2" /> Advanced Technology
-                </h3>
-                <p>State-of-the-art medical equipment and facilities.</p>
-              </motion.div>
-            </Card>
+              Learn More
+            </a>
           </div>
+        </div>
+      </motion.section>
+
+     
+      {/* Trusted by Millions Section */}
+      <motion.section
+        className="py-20"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 1 }}
+        variants={fadeInFromLeft}
+      >
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-3xl font-bold text-blue-800 mb-6">
+            Trusted by Millions
+          </h2>
+          <p className="text-lg text-gray-700 mb-12">
+            Our commitment to innovation and quality healthcare has earned the
+            trust of families worldwide.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+            {[
+              {
+                image: qualityImage,
+                title: "Quality Diagnosis",
+                description:
+                  "We provide the highest quality diagnostics for accurate results.",
+              },
+              {
+                image: expertImage,
+                title: "Expert Consultation",
+                description:
+                  "Consult with top healthcare professionals from around the world.",
+              },
+              {
+                image: supportImage,
+                title: "24/7 Support",
+                description:
+                  "Get support anytime you need with our dedicated customer service.",
+              },
+            ].map((service, index) => (
+              <motion.div
+                key={index}
+                className="p-6 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow"
+                whileHover={{ scale: 1.05 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: index * 0.2 }}
+              >
+                <img
+                  src={service.image}
+                  alt={service.title}
+                  className="w-full h-64 object-cover rounded-md mb-4"
+                />
+                <h3 className="text-xl font-semibold text-blue-700 mb-2">
+                  {service.title}
+                </h3>
+                <p className="text-gray-600">{service.description}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </motion.section>
+
+      {/* How We Work Section */}
+      <motion.section
+        className="py-20 bg-blue-200"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 1 }}
+        variants={fadeInFromBottom}
+      >
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-3xl font-bold text-blue-900 mb-6">How We Work</h2>
+          <p className="text-lg text-gray-800 mb-12">
+            Discover our patient-centered approach to healthcare. We ensure
+            seamless care tailored to meet every individual's needs.
+          </p>
+          <div className="flex flex-col lg:flex-row justify-center items-center space-y-8 lg:space-y-0 lg:space-x-12">
+            <div className="text-center max-w-sm">
+              <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+                <img
+                  src={bookingImage}
+                  alt="Book Your Appointment"
+                  className="w-20 h-20 mx-auto mb-4"
+                />
+                <h3 className="text-xl font-semibold text-blue-800 mb-2">
+                  Book Your Appointment
+                </h3>
+                <p className="text-gray-600">
+                  Schedule appointments quickly through our intuitive platform.
+                </p>
+              </div>
+            </div>
+            <div className="text-center max-w-sm">
+              <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+                <img
+                  src={recordImage}
+                  alt="Access Your Records"
+                  className="w-20 h-20 mx-auto mb-4"
+                />
+                <h3 className="text-xl font-semibold text-blue-800 mb-2">
+                  Access Your Records
+                </h3>
+                <p className="text-gray-600">
+                  View your health data securely anytime, anywhere.
+                </p>
+              </div>
+            </div>
+            <div className="text-center max-w-sm">
+              <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+                <img
+                  src={treatedImage}
+                  alt="Get Treated"
+                  className="w-20 h-20 mx-auto mb-4"
+                />
+                <h3 className="text-xl font-semibold text-blue-800 mb-2">
+                  Get Treated
+                </h3>
+                <p className="text-gray-600">
+                  Receive care from highly skilled professionals using the
+                  latest advancements.
+                </p>
+              </div>
+            </div>
+          </div>
+
         </motion.section>
 
         {/* Symptom Checker Section */}
@@ -365,8 +494,13 @@ export default function Home() {
           </Card>
         </motion.section>
       </main>
+
     </div>
   );
-}
+};
 
+
+
+
+export default Home;
 
