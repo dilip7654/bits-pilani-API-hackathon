@@ -9,21 +9,29 @@ import 'react-toastify/dist/ReactToastify.css';
 import Login from './components/Login';
 import AboutUs from './components/aboutus';
 import ForgotPassword from './components/forgetpassword';
-
+// import Dashboard from './components/Patientinterface/Dashboard'
+import UserInterFace from './components/PatientInterface/Dashbord'
+import PatientData from './components/PatientInterface/PatientData'
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import Footer from './components/Footer';
 export default function App() {
   return (
     <>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/Map" element={<Map />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/Schedule" element={<Schedule />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/Contact" element={<Contact />} />
-        <Route path="/aboutus" element={<AboutUs />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} /> 
-      </Routes>
+    <Navbar/>
+    <Routes>
+      <Route path="/" element = {<Home/>}/>;
+      <Route path="/Map" element = {<Map/>}/>; 
+      <Route path="/signup" element = {<Signup/>}/>;
+      <Route path="/Schedule" element = {<Schedule/>}/>;
+      <Route path="/login" element = {<Login/>}/>;
+      <Route path="/Contact" element={<Contact />} />
+      <Route path="/aboutus" element={<AboutUs />} />
+      {/* <Route path="/dashboard" element={<Dashbord />} /> */}
+      <Route path='/UIF' element={<UserInterFace/>}/>
+      <Route path='/pdata' element={<PatientData/>}/>
+      <Route path="/forgot-password" element={<ForgotPassword />} /> 
+    </Routes>
+      <Footer />
     </>
   );
 }
