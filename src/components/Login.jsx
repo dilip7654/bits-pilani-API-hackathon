@@ -1,11 +1,10 @@
-import React, { useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { FaGoogle, FaFacebook } from "react-icons/fa";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-import { auth, googleProvider, facebookProvider } from "./Firebase"; 
+import { auth, googleProvider, facebookProvider } from "./Firebase";
 import { AuthContext } from "./AuthContext";
-
 
 export default function Login() {
   const containerVariants = {
@@ -32,14 +31,14 @@ export default function Login() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { setIsAuthenticated } = useContext(AuthContext); 
+  const { setIsAuthenticated } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleEmailLogin = async (e) => {
     e.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      setIsAuthenticated(true); 
+      setIsAuthenticated(true);
       navigate("/");
     } catch (err) {
       console.error("Email Login Error:", err.message);
@@ -49,7 +48,7 @@ export default function Login() {
   const handleGoogleLogin = async () => {
     try {
       await signInWithPopup(auth, googleProvider);
-      setIsAuthenticated(true); 
+      setIsAuthenticated(true);
       navigate("/");
     } catch (err) {
       console.error("Google Login Error:", err.message);
@@ -86,7 +85,11 @@ export default function Login() {
           Lifeline Devs Login
         </motion.h2>
 
-        <motion.form className="space-y-4" variants={containerVariants}  onSubmit={handleEmailLogin}>
+        <motion.form
+          className="space-y-4"
+          variants={containerVariants}
+          onSubmit={handleEmailLogin}
+        >
           <motion.div className="space-y-2" variants={itemVariants}>
             <label className="block text-[#03045e] font-medium" htmlFor="email">
               Email:
@@ -94,7 +97,8 @@ export default function Login() {
             <motion.input
               type="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}d
+              onChange={(e) => setEmail(e.target.value)}
+              d
               whileFocus={{ scale: 1.02 }}
               className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#0077b6]"
             />
@@ -167,15 +171,14 @@ export default function Login() {
         </motion.p>
 
         <motion.p className="text-center mt-4 text-sm" variants={itemVariants}>
-  <motion.a
-    href="/forgot-password"
-    whileHover={{ scale: 1.1 }}
-    className="font-semibold text-[#0077b6] hover:underline"
-  >
-    Forgot Password?
-  </motion.a>
-</motion.p>
-
+          <motion.a
+            href="/forgot-password"
+            whileHover={{ scale: 1.1 }}
+            className="font-semibold text-[#0077b6] hover:underline"
+          >
+            Forgot Password?
+          </motion.a>
+        </motion.p>
       </motion.div>
     </motion.div>
   );
