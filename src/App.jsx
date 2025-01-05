@@ -8,7 +8,8 @@ import Footer from './components/Footer';
 import Contact from './components/contact';
 import 'react-toastify/dist/ReactToastify.css';
 import Login from './components/Login';
-import '@fortawesome/fontawesome-free/css/all.min.css';
+import '@fortawesome/fontawesome-free/css/all.min.css'; 
+import News from './components/news';
 
 export default function App() {
   return (
@@ -21,7 +22,7 @@ export default function App() {
         <Route path="/Schedule" element={<Schedule />} />
         <Route path="/login" element={<Login />} />
         <Route path="/Contact" element={<Contact />} />
-        {/* <Route path="/About" element={<About />} /> */}
+        <Route path="/News" element={<News />} />
       </Routes>
 
       <Footer />

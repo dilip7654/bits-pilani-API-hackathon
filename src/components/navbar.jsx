@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { FaHome, FaHospitalAlt, FaCalendarAlt, FaSignInAlt, FaUserPlus, FaInfoCircle, FaEnvelope } from "react-icons/fa";
+import { FaHome,IoNewspaperOutline, FaHospitalAlt, FaCalendarAlt, FaSignInAlt, FaUserPlus, FaInfoCircle, FaEnvelope } from "react-icons/fa";
 
 export default function Navbar() {
     return (
@@ -19,14 +19,19 @@ export default function Navbar() {
                             <FaHospitalAlt /> Nearby Hospitals
                         </li>
                     </Link>
+                    <Link to="/News">
+                        <li className="flex items-center gap-2 text-[#fcefef] font-medium px-1 py-1.5 rounded-lg hover:bg-[#fbb13c] hover:text-[#03045e] transition-all duration-300 ease-in-out transform hover:scale-105 cursor-pointer shadow-md hover:shadow-lg">
+                            <IoNewspaperOutline /> News
+                        </li>
+                    </Link>
                     <Link to="/Schedule">
                         <li className="flex items-center gap-2 text-[#fcefef] font-medium px-1 py-1.5 rounded-lg hover:bg-[#fbb13c] hover:text-[#03045e] transition-all duration-300 ease-in-out transform hover:scale-105 cursor-pointer shadow-md hover:shadow-lg">
                             <FaCalendarAlt /> Schedule Appointment
                         </li>
                     </Link>
-                    <Link to="/Contact">
+                    <Link to="/Home">
                         <li className="flex items-center gap-2 text-[#fcefef] font-medium px-1 py-1.5 rounded-lg hover:bg-[#fbb13c] hover:text-[#03045e] transition-all duration-300 ease-in-out transform hover:scale-105 cursor-pointer shadow-md hover:shadow-lg">
-                            <FaEnvelope /> Contact Us
+                            <FaHome /> Home
                         </li>
                     </Link>
                     <Link to="/About">
