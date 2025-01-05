@@ -4,27 +4,33 @@ import Map from './components/map';
 import Signup from './components/Signup';
 import Schedule from './components/schedule';
 import Navbar from './components/navbar';
-import Footer from './components/Footer';
 import Contact from './components/contact';
 import 'react-toastify/dist/ReactToastify.css';
 import Login from './components/Login';
-import '@fortawesome/fontawesome-free/css/all.min.css'; 
-import News from './components/news';
-
+import AboutUs from './components/aboutus';
+import ForgotPassword from './components/forgetpassword';
+// import Dashboard from './components/Patientinterface/Dashboard'
+import UserInterFace from './components/PatientInterface/Dashbord'
+import PatientData from './components/PatientInterface/PatientData'
+// import '@fortawesome/fontawesome-free/css/all.min.css';
+import Footer from './components/Footer';
 export default function App() {
   return (
     <>
-      <Navbar />
-      <Routes>
-        <Route path="/Home" element={<Home />} />
-        <Route path="/Map" element={<Map />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/Schedule" element={<Schedule />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/Contact" element={<Contact />} />
-        <Route path="/News" element={<News />} />
-      </Routes>
-
+    <Navbar/>
+    <Routes>
+      <Route path="/" element = {<Home/>}/>;
+      <Route path="/Map" element = {<Map/>}/>; 
+      <Route path="/signup" element = {<Signup/>}/>;
+      <Route path="/Schedule" element = {<Schedule/>}/>;
+      <Route path="/login" element = {<Login/>}/>;
+      <Route path="/Contact" element={<Contact />} />
+      <Route path="/aboutus" element={<AboutUs />} />
+      {/* <Route path="/dashboard" element={<Dashbord />} /> */}
+      <Route path='/UIF' element={<UserInterFace/>}/>
+      <Route path='/pdata' element={<PatientData/>}/>
+      <Route path="/forgot-password" element={<ForgotPassword />} /> 
+    </Routes>
       <Footer />
     </>
   );
