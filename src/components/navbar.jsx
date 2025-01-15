@@ -53,7 +53,7 @@ export default function Navbar() {
                     </Link>
                     {isAuthenticated ? (
           <>
-            <Link to="/Profile">
+            <Link to="/Profile">        
                         <li className="flex items-center gap-2 text-[#fcefef] font-medium px-1 py-1.5 rounded-lg hover:bg-[#fbb13c] hover:text-[#03045e] transition-all duration-300 ease-in-out transform hover:scale-105 cursor-pointer shadow-md hover:shadow-lg">
                         <CgProfile /> Profile
                         </li>

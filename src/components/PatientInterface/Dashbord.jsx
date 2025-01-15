@@ -10,21 +10,13 @@ import {
 } from 'lucide-react';
 import ScheduleAppointment from '../schedule';
 import MyApp from './MyApp';
+import Userpro from './Userpro';
 
 
 const Dashboard = () => (
   <div className="p-6">
-    <h2 className="text-2xl font-bold mb-4">Dashboard</h2>
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div className="bg-white p-4 rounded-lg shadow">
-        <h3 className="font-semibold mb-2">Recent Appointments</h3>
-        <p>No recent appointments</p>
-      </div>
-      <div className="bg-white p-4 rounded-lg shadow">
-        <h3 className="font-semibold mb-2">Health Statistics</h3>
-        <p>Your health data will appear here</p>
-      </div>
-    </div>
+    <h2 className=""><Userpro/></h2>
+    
   </div>
 );
 
@@ -39,7 +31,7 @@ const BookAppointment = () => (
 
 const Calendar = () => (
   <div className="p-6">
-    <h2 className="text-2xl font-bold mb-4"><MyApp/></h2>
+    <h2 className="text-2xl font-bold mb-4"><MyApp/></h2> 
     <div className="bg-white p-4 rounded-lg shadow">
       <p>Your schedule will appear here</p>    </div>
   </div>
