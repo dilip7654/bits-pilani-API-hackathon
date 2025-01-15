@@ -14,6 +14,7 @@ import UserInterFace from './components/PatientInterface/Dashbord'
 import PatientData from './components/PatientInterface/PatientData'
 // import '@fortawesome/fontawesome-free/css/all.min.css';
 import Footer from './components/Footer';
+import Dashboard from '../src/components/PatientInterface/Dashbord'
 export default function App() {
   return (
     <>
@@ -22,7 +23,7 @@ export default function App() {
       <Route path="/" element = {<Home/>}/>;
       <Route path="/Map" element = {<Map/>}/>; 
       <Route path="/signup" element = {<Signup/>}/>;
-      <Route path="/Schedule" element = {<Schedule/>}/>;
+      <Route path="/Schedule" element = {<Dashboard/>}/>;
       <Route path="/login" element = {<Login/>}/>;
       <Route path="/Contact" element={<Contact />} />
       <Route path="/aboutus" element={<AboutUs />} />
@@ -30,6 +31,8 @@ export default function App() {
       <Route path='/UIF' element={<UserInterFace/>}/>
       <Route path='/pdata' element={<PatientData/>}/>
       <Route path="/forgot-password" element={<ForgotPassword />} /> 
+      
+
     </Routes>
       <Footer />
     </>
