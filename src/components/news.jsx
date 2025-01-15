@@ -8,8 +8,8 @@ const NewsArticle = ({ article, variant = "default", className="" }) => {
 
   const variants = {
     featured: "bg-gradient-to-br from-[#0077b6] to-[#00b4d8] rounded-xl shadow-xl hover:shadow-2xl transition-all text-white",
-    default: "bg-[#fcefef] rounded-xl shadow-lg hover:shadow-xl transition-all border border-[#0077b6]/10",
-    compact: "bg-[#fcefef] rounded-xl shadow-lg hover:shadow-xl transition-all border border-[#0077b6]/10"
+    default: "bg-[#ffccd5] rounded-xl shadow-lg hover:shadow-xl transition-all border border-[#0077b6]/10",
+    compact: "bg-[#ffccd5] rounded-xl shadow-lg hover:shadow-xl transition-all border border-[#0077b6]/10"
   };
 
   return (
@@ -48,7 +48,7 @@ const NewsArticle = ({ article, variant = "default", className="" }) => {
           <div className="p-4">
             <div className="flex gap-4">
               <div className="w-1/3">
-                <div className="aspect-video rounded-lg overflow-hidden bg-[#fcefef]">
+                <div className="aspect-video rounded-lg overflow-hidden bg-[#ffccd5]">
                   <img src="/api/placeholder/240/135" alt={article.title} className="w-full h-full object-cover" />
                 </div>
               </div>
@@ -77,7 +77,7 @@ const NewsArticle = ({ article, variant = "default", className="" }) => {
 };
 
 const QuickInsight = ({ insight }) => (
-  <div className="bg-[#fcefef] rounded-xl p-4 shadow-sm border border-[#0077b6]/10">
+  <div className="bg-[#ffccd5] rounded-xl p-4 shadow-sm border border-[#0077b6]/10">
     <div className="flex items-start gap-3">
       <div className="p-2 rounded-lg bg-[#0077b6]/10">
         <insight.icon className="w-5 h-5 text-[#0077b6]" />
@@ -206,29 +206,10 @@ const AllNews = () => {
           </div>
 
           {/* Main News Feed */}
-          <div className="col-span-12 lg:col-span-8">
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-lg font-semibold text-[#03045e]">Latest Updates</h2>
-              <button className="text-[#0077b6] text-sm font-medium flex items-center gap-1">
-                View All <ChevronRight className="w-4 h-4" />
-              </button>
-            </div>
-            <div className="grid gap-4">
-              {[...latestNews, ...healthTips.slice(0, 4)].map((article, idx) => (
-                <NewsArticle key={idx} article={article} variant="default" />
-              ))}
-            </div>
-          </div>
-
-          {/* Newsletter */}
-          <div className="col-span-12">
-            <div className="bg-gradient-to-r from-[#0077b6] to-[#00b4d8] text-white text-center py-8 rounded-xl shadow-lg">
-              <h3 className="text-2xl font-semibold mb-4">Stay Updated</h3>
-              <p className="text-lg mb-6">Get the latest health updates directly in your inbox.</p>
-              <button className="px-6 py-2 bg-[#f8e16c] text-[#03045e] rounded-lg font-medium hover:bg-[#fbb13c] transition-colors">
-                Subscribe Now
-              </button>
-            </div>
+          <div className="col-span-12 lg:col-span-8 space-y-6">
+            {healthTips.map((article, idx) => (
+              <NewsArticle key={idx} article={article} variant="compact" />
+            ))}
           </div>
         </div>
       </div>
