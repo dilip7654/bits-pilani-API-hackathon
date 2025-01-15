@@ -9,6 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Login from './components/Login';
 import AboutUs from './components/aboutus';
 import ForgotPassword from './components/forgetpassword';
+import News from './components/news';
 
 export default function App() {
   return (
@@ -22,7 +23,8 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/Contact" element={<Contact />} />
         <Route path="/aboutus" element={<AboutUs />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} /> 
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/news" element={<News />} /> 
       </Routes>
     </>
   );

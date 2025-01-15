@@ -1,6 +1,6 @@
 import React from "react";
-import { motion } from "framer-motion"; // Import Framer Motion
-import BackgroundVideo from "./bgvideo"; // Ensure correct import path for BackgroundVideo
+import { motion } from "framer-motion"; 
+import BackgroundVideo from "./bgvideo"; 
 
 // Importing images
 import patientImage from "../assets/patientmanagement.jpg";
@@ -74,7 +74,7 @@ const Home = () => {
           variants={fadeInFromLeft}
         >
           <h1 className="text-5xl font-extrabold leading-snug mb-4 text-[#03045e]">
-          LifeLine Devs: Transforming Healthcare Through Innovation
+            LifeLine Devs: Transforming Healthcare Through Innovation
           </h1>
           <p className="text-lg max-w-2xl mx-auto mb-8 text-[#03045e] font-bold">
             Seamlessly modernize healthcare systems with cutting-edge
@@ -99,25 +99,24 @@ const Home = () => {
           <div className="flex justify-center gap-12">
             {services.map((service, index) => (
               <motion.div
-              key={index}
-              className="w-[300px] bg-white rounded-lg shadow-lg p-6 text-center group hover:scale-105 transition-transform duration-500"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.2, duration: 0.8 }}
-              variants={fadeInFromBottom}
-            >
-              <div className="overflow-hidden"> {/* This div ensures the image stays within bounds */}
-                <img
-                  src={service.image}
-                  alt={service.title}
-                  className="rounded-t-lg mb-4 object-cover w-full h-64 transition-transform duration-300 group-hover:scale-110" 
-                />
-              </div>
-              <h3 className="text-2xl font-bold text-[#03045e]">{service.title}</h3>
-              <p className="text-[#03045e]">{service.description}</p>
-            </motion.div>
-            
+                key={index}
+                className="w-[300px] bg-white rounded-lg shadow-lg p-6 text-center group hover:scale-105 transition-transform duration-500"
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.2, duration: 0.8 }}
+                variants={fadeInFromBottom}
+              >
+                <div className="overflow-hidden">
+                  <img
+                    src={service.image}
+                    alt={service.title}
+                    className="rounded-t-lg mb-4 object-cover w-full h-64 transition-transform duration-300 group-hover:scale-110"
+                  />
+                </div>
+                <h3 className="text-2xl font-bold text-[#03045e]">{service.title}</h3>
+                <p className="text-[#03045e]">{service.description}</p>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -149,7 +148,7 @@ const Home = () => {
               Advanced Care, Close to Home
             </h1>
             <p className="text-lg text-gray-900 mb-6">
-            Experience world-class healthcare services tailored to your needs, from advanced diagnostics and personalized treatments to seamless telehealth options and modern patient management tools - all under one roof.
+              Experience world-class healthcare services tailored to your needs, from advanced diagnostics and personalized treatments to seamless telehealth options and modern patient management tools - all under one roof.
             </p>
             <a
               href="#"
@@ -161,7 +160,6 @@ const Home = () => {
         </div>
       </motion.section>
 
-     
       {/* Trusted by Millions Section */}
       <motion.section
         className="py-20"
@@ -180,7 +178,7 @@ const Home = () => {
             trust of families worldwide.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            {[
+            {[  
               {
                 image: qualityImage,
                 title: "Quality Diagnosis",
@@ -314,6 +312,8 @@ const Home = () => {
           </a>
         </div>
       </motion.section>
+    </div>
+  );
+};
 
-
-export default Home
+export default Home;

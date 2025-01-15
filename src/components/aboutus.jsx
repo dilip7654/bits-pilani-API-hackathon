@@ -180,7 +180,8 @@ const AboutUs = () => {
       </section>
 
       {/* Contact Section */}
-      <div className="min-h-screen bg-gradient-to-b from-[#fcefef] to-[#90e0ef] flex flex-col items-center py-12">
+      <div className="min-h-screen bg-gradient-to-b from-[#90e0ef] to-[#fcefef] flex flex-col items-center py-12">
+
         {/* Header Section */}
         <header className="text-center mb-12">
           <h1 className="text-4xl font-bold text-[#03045e]">We’re Here to Help</h1>
