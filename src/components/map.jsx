@@ -7,7 +7,7 @@ import { FaLocationDot } from "react-icons/fa6";
 import { FaEnvelope } from "react-icons/fa";
 import { FaPhone } from "react-icons/fa";
 import { RiHealthBookFill } from "react-icons/ri";
-import healthcareImage from "../assets/image.jpeg";
+// import healthcareImage from "../assets/image.jpeg";
 
 export default function Home() {
   const services = [
