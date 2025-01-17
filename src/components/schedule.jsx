@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ProgressIndicator from './ProgressIndicator'; 
 
-function ScheduleAppointment() {
+function Schedule() {
   const [step, setStep] = useState(1);
   const [selectedDoctor, setSelectedDoctor] = useState(null);
   const [appointmentDetails, setAppointmentDetails] = useState({
@@ -206,4 +206,4 @@ function ScheduleAppointment() {
   );
 }
 
-export default ScheduleAppointment;
+export default Schedule;

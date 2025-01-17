@@ -8,7 +8,7 @@ import {
   Settings, 
   Heart 
 } from 'lucide-react';
-import ScheduleAppointment from '../schedule';
+import ScheduleAppointment from '../Schedule';
 import MyApp from './MyApp';
 import Userpro from './Userpro';
 
