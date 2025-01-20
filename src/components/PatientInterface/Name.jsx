@@ -11,12 +11,11 @@ const Name = () => {
     const [loading, setLoading] = useState(true);
     
     useEffect(() => {
-      const fetchUserData = async () => {
-        const auth = getAuth();
-        const currentUser = auth.currentUser;
-  
-        if (currentUser) {
-          const userId = currentUser.uid; // Get the user's UID
+      const auth = getAuth();
+    
+      const unsubscribe = auth.onAuthStateChanged(async (user) => {
+        if (user) {
+          const userId = user.uid; // Get the user's UID
           try {
             // Fetch user-specific data
             const userDoc = await getDoc(doc(db, "users", userId));
@@ -32,16 +31,17 @@ const Name = () => {
           console.log("No user is signed in.");
         }
         setLoading(false);
-      };
-  
-      fetchUserData();
+      });
+    
+      return () => unsubscribe(); // Clean up the listener when the component unmounts
     }, []);
+    
   
     if (loading) return <div>Loading...</div>;
-
+    console.log(userData)
   return (
     <div>
-      <div className="main-container h-auto w-4/5 mx-auto bg-white shadow-lg rounded-lg mt-6 overflow-hidden transform hover:scale-[1.02] transition-transform duration-300">
+      <div className="main-container h-auto w-5/5 mx-auto bg-white shadow-lg rounded-lg mt-6 overflow-hidden transform hover:scale-[1.02] transition-transform duration-300">
         <div className="mt-2 h-56 flex justify-evenly rounded-lg p-4 bg-gradient-to-r relative overflow-hidden">
           {/* Decorative elements */}
           {/* <div className="absolute top-0 left-0 w-full h-full bg-white/5 backdrop-blur-sm opacity-30 mix-blend-soft-light"></div> */}
@@ -75,7 +75,7 @@ const Name = () => {
           </div>
           
           <div className="left-box flex  justify-center items-start gap-2 mt-10">
-            <div className="contact bg-[#03045e] text-[#fcefef] px-6 py-2 rounded-md text-center cursor-pointer hover:bg-[#002f6c] shadow-lg flex items-center gap-2 w-36 justify-center transform hover:-translate-y-1 transition-all duration-200 border border-white/20">
+            <div className="contact bg-[#03045e] text-[#fcefef] px-6 py-2 rounded-md text-center cursor-pointer hover:bg-[#002f6c] shadow-lg flex items-center gap-2 w-38 justify-center transform hover:-translate-y-1 transition-all duration-200 border border-white/20">
               <Phone size={16} />
               {userData.phone}
             </div>
@@ -89,6 +89,7 @@ const Name = () => {
           <div className="absolute inset-0 bg-gradient-to-b from-transparent to-white/5"></div>
         </div>
       </div>
+
     </div>
   )
 }

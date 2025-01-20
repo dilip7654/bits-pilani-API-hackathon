@@ -10,21 +10,24 @@ import {
 } from 'lucide-react';
 import ScheduleAppointment from '../schedule';
 import MyApp from './MyApp';
+import Name from './Name';
+import Personal_info from './Personal_info';
+import FeedbackForm from './FeedbackForm';
 
 
 const Dashboard = () => (
   <div className="p-6">
-    <h2 className="text-2xl font-bold mb-4">Dashboard</h2>
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <h2 className="text-2xl font-bold mb-4"><Name/></h2>
+    {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-4"> */}
       <div className="bg-white p-4 rounded-lg shadow">
-        <h3 className="font-semibold mb-2">Recent Appointments</h3>
-        <p>No recent appointments</p>
+        <h3 className="font-semibold mb-2"><Personal_info/></h3>
+        
       </div>
-      <div className="bg-white p-4 rounded-lg shadow">
+      {/* <div className="bg-white p-4 rounded-lg shadow">
         <h3 className="font-semibold mb-2">Health Statistics</h3>
         <p>Your health data will appear here</p>
-      </div>
-    </div>
+      </div> */}
+    {/* </div> */}
   </div>
 );
 
@@ -56,7 +59,7 @@ const Report = () => (
 
 const Feedback = () => (
   <div className="p-6">
-    <h2 className="text-2xl font-bold mb-4">Feedback</h2>
+    <h2 className="text-2xl font-bold mb-4"><FeedbackForm/></h2>
     <div className="bg-white p-4 rounded-lg shadow">
       <p>Share your feedback here</p>
     </div>
