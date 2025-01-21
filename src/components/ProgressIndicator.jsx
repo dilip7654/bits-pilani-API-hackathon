@@ -1,11 +1,10 @@
-import React from 'react';
-
 const ProgressIndicator = ({ currentStep }) => {
   const steps = [
-    { label: 'Doctor', number: 1 },
-    { label: 'Date', number: 2 },
-    { label: 'Details', number: 3 },
-    { label: 'Confirm', number: 4 },
+    { label: 'Specialization', number: 1 },
+    { label: 'Doctor', number: 2 },
+    { label: 'Date', number: 3 },
+    { label: 'Details', number: 4 },
+    { label: 'Confirm', number: 5 },
   ];
 
   return (
