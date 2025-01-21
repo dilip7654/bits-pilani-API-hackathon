@@ -6,6 +6,7 @@ import { auth, db, googleProvider, facebookProvider } from "./Firebase";
 import { doc, setDoc } from "firebase/firestore";
 import { AuthContext } from "./AuthContext";
 import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import signupImage from "../assets/signup.png";
 
 export default function Signup() {
   const containerVariants = {
@@ -115,12 +116,12 @@ export default function Signup() {
 
   return (
     <motion.div
-      className="flex items-center justify-center min-h-screen bg-gradient-to-r from-[#03045e]/90 to-[#0077b6]/80"
+      className="flex items-center justify-center min-h-screen bg-[#ffffff]"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
-      <div className="flex flex-col md:flex-row items-center w-[95%] max-w-[900px] bg-white shadow-lg rounded-lg overflow-hidden mx-auto mt-20 mb-10">
+      <div className="flex flex-col md:flex-row items-center w-[95%] max-w-[900px] bg-[#e0f7fa] shadow-lg rounded-lg overflow-hidden mx-auto mt-20 mb-10">
         {/* Signup Form Section on the Left */}
         <motion.div
           className="p-6 w-full md:w-1/2"
@@ -259,7 +260,14 @@ export default function Signup() {
         </motion.div>
 
         {/* Image Section on the Right */}
-        <div className="hidden md:flex md:w-1/2 bg-cover bg-center bg-[url('/path/to/image.jpg')]"></div>
+        <div
+  className="hidden md:flex md:w-1/2 bg-cover bg-center"
+  style={{
+    backgroundImage: `url(${signupImage})`,
+    height: "100vh",
+    marginLeft: "2rem", // Ensuring the height is set
+  }}
+></div>
       </div>
     </motion.div>
   );

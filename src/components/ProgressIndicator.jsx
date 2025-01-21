@@ -14,16 +14,22 @@ const ProgressIndicator = ({ currentStep }) => {
           <div key={step.number} className="flex flex-col items-center">
             <div
               className={`w-7 h-7 flex items-center justify-center rounded-full ${
-                step.number <= currentStep ? 'bg-[#0077b6]' : 'bg-[#a5d8ff]'
-              } text-white font-bold`}
+                step.number <= currentStep ? 'bg-[#0077b6]' : 'bg-[#e0f7fa]'
+              } text-white font-semibold`}
             >
               {step.number}
             </div>
-            <span className="mt-0 text-center text-gray-700">{step.label}</span>
+            <span
+              className={`mt-0 text-center ${
+                step.number <= currentStep ? 'text-[#0077b6]' : 'text-gray-600'
+              } font-medium`}
+            >
+              {step.label}
+            </span>
           </div>
         ))}
       </div>
-      <div className="relative w-full max-w-xl h-2 bg-[#a5d8ff] rounded-full">
+      <div className="relative w-full max-w-xl h-2 bg-[#e0f7fa] rounded-full">
         <div
           className="absolute top-0 left-0 h-2 bg-[#0077b6] rounded-full"
           style={{ width: `${(currentStep / steps.length) * 100}%` }}

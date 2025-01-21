@@ -5,7 +5,7 @@ import { FaGoogle, FaFacebook } from "react-icons/fa";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { auth, googleProvider, facebookProvider } from "./Firebase";
 import { AuthContext } from "./AuthContext";
-import loginImage from "../assets/login.jpg";
+import loginImage from "../assets/login.png";
 
 export default function Login() {
   const containerVariants = {
@@ -68,19 +68,21 @@ export default function Login() {
 
   return (
     <motion.div
-      className="flex items-center justify-center min-h-screen bg-gradient-to-r from-[#03045e]/90 to-[#0077b6]/80"
+      className="flex items-center justify-center min-h-screen bg-[#ffffff]"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
-      <div className="flex flex-col md:flex-row items-center justify-between w-11/12 max-w-5xl bg-white shadow-lg rounded-lg overflow-hidden">
+      <div className="flex flex-col md:flex-row items-center justify-between w-11/12 max-w-5xl bg-[#e0f7fa] shadow-lg rounded-lg overflow-hidden">
         {/* Image Section */}
-        <motion.div
-  className="w-full h-96 bg-cover bg-center"
-  style={{
-    backgroundImage: `url(${loginImage})`,
-  }}
-></motion.div>
+        <motion.div className="w-98 h-[500px] relative">  {/* You can adjust the height here */}
+  <img
+    src={loginImage}
+    alt="Login"
+    className="w-full h-full object-cover"  // Ensures the image covers the entire area
+  />
+</motion.div>
+
 
 
         {/* Login Form Section */}

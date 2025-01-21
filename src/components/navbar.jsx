@@ -25,11 +25,21 @@ export default function Navbar() {
           {/* Brand Name (Lifeline Devs) Button */}
           <button
             onClick={() => navigate("/")}
-            className="text-white text-3xl font-bold hover:text-[#00b4d8] transition-all duration-300 text-shadow-md"
+            className="text-white text-3xl font-bold transition-transform duration-300 transform hover:scale-110"
+            style={{
+              textShadow:
+                "0 0 5px rgba(0, 180, 216, 1), 0 0 10px rgba(0, 180, 216, 0.8)",
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.textShadow =
+                "0 0 10px rgba(0, 180, 216, 1), 0 0 20px rgba(0, 180, 216, 0.8)";
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.textShadow = "0 0 5px rgba(0, 180, 216, 1)";
+            }}
           >
             Lifeline Devs
           </button>
-
           {/* Navigation Links */}
           <div className="flex space-x-8">
             <Link

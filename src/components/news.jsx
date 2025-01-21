@@ -6,11 +6,11 @@ const NewsArticle = ({ article, variant = "default", className = "" }) => {
 
   const variants = {
     featured:
-      "bg-gradient-to-r from-[#03045e]/90 to-[#0077b6]/80 text-white rounded-xl shadow-xl hover:shadow-2xl transition-all", // Updated gradient background
+      "bg-[#e0f7fa] text-[#03045e] rounded-xl shadow-xl hover:shadow-2xl transition-all", // Applied #e0f7fa background and dark blue text for the big card
     default:
-      "bg-white text-[#03045e] rounded-xl shadow-lg hover:shadow-xl transition-all border border-[#0077b6]/10", // White card with gradient background
+      "bg-white text-[#03045e] rounded-xl shadow-lg hover:shadow-xl transition-all border border-[#0077b6]/10", 
     compact:
-      "bg-white text-[#03045e] rounded-lg shadow-lg hover:shadow-xl transition-all border border-[#0077b6]/10 flex flex-col h-full", // White card with gradient background
+      "bg-[#e0f7fa] text-[#03045e] rounded-lg shadow-lg hover:shadow-xl transition-all border border-[#0077b6]/10 flex flex-col h-full", // Applied the light blue background for small cards
   };
 
   return (
@@ -30,14 +30,14 @@ const NewsArticle = ({ article, variant = "default", className = "" }) => {
                 <span className="text-sm font-medium px-3 py-1 rounded-full bg-[#f8e16c] text-[#03045e]">
                   {article.source.name}
                 </span>
-                <div className="text-sm text-white/80">
+                <div className="text-sm text-[#03045e]">
                   {new Date(article.publishedAt).toLocaleDateString()} •{" "}
                   {article.author || "Unknown"}
                 </div>
               </div>
             </div>
             <div className="md:w-1/2">
-              <h3 className="text-3xl font-semibold mb-4 text-[#f8e16c]">
+              <h3 className="text-3xl font-semibold mb-4 text-[#03045e]">
                 <a
                   href={article.url}
                   target="_blank"
@@ -47,9 +47,9 @@ const NewsArticle = ({ article, variant = "default", className = "" }) => {
                   {article.title}
                 </a>
               </h3>
-              <p className="text-white/80 mb-4">{article.description}</p>
+              <p className="text-[#03045e] mb-4">{article.description}</p>
               <div className="flex items-center justify-between mt-auto">
-                <div className="text-sm text-white">{article.author}</div>
+                <div className="text-sm text-[#03045e]">{article.author}</div>
                 <div className="flex gap-3">
                   <button onClick={() => setIsBookmarked(!isBookmarked)}>
                     <Bookmark
@@ -81,7 +81,7 @@ const NewsArticle = ({ article, variant = "default", className = "" }) => {
                     {new Date(article.publishedAt).toLocaleDateString()}
                   </div>
                 </div>
-                <h3 className="text-xl font-semibold mb-2 text-[#0077b6]">
+                <h3 className="text-xl font-semibold mb-2 text-[#03045e]">
                   <a
                     href={article.url}
                     target="_blank"
@@ -108,7 +108,7 @@ const AllNews = () => {
   const [currentFeaturedIndex, setCurrentFeaturedIndex] = useState(0);
   const [latestNews, setLatestNews] = useState([]);
   const [search, setSearch] = useState("health management");
-  const [visibleNewsCount, setVisibleNewsCount] = useState(9); // Initial number of rows to show
+  const [visibleNewsCount, setVisibleNewsCount] = useState(9);
   const API_KEY = "64251548edf142259a443053c457d966";
 
   useEffect(() => {
@@ -120,8 +120,8 @@ const AllNews = () => {
         const data = await response.json();
 
         if (data.articles.length > 0) {
-          setFeaturedArticles(data.articles.slice(0, 5)); // First 5 for the carousel
-          setLatestNews(data.articles.slice(5, 50)); // More articles for displaying
+          setFeaturedArticles(data.articles.slice(0, 5));
+          setLatestNews(data.articles.slice(5, 50));
         }
       } catch (error) {
         console.error("Error fetching news:", error);
@@ -136,9 +136,9 @@ const AllNews = () => {
       setCurrentFeaturedIndex((prevIndex) =>
         (prevIndex + 1) % featuredArticles.length
       );
-    }, 5000); // Change article every 5 seconds
+    }, 5000);
 
-    return () => clearInterval(interval); // Cleanup interval on unmount
+    return () => clearInterval(interval);
   }, [featuredArticles]);
 
   const featuredArticle =
@@ -147,16 +147,15 @@ const AllNews = () => {
       : null;
 
   const loadMoreNews = () => {
-    setVisibleNewsCount((prevCount) => prevCount + 9); // Increase rows by 9 when "Load More" is clicked
+    setVisibleNewsCount((prevCount) => prevCount + 9);
   };
 
   return (
-    <div className="min-h-screen bg-[#0077b6]/80">
+    <div className="min-h-screen bg-[#ffffff]">
       <div className="max-w-7xl mx-auto px-4 py-8">
 
-        {/* Heading and Search Bar */}
-        <div className="flex justify-between items-center mt-20"> {/* Adjusted margin-top for spacing */}
-          <h2 className="text-4xl text-white font-semibold">Latest News</h2>
+        <div className="flex justify-between items-center mt-20">
+          <h2 className="text-4xl text-[#03045e] font-semibold">Latest News</h2>
           <div className="relative">
             <input
               type="text"
@@ -168,15 +167,13 @@ const AllNews = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-12 gap-6 mt-6"> {/* Reduced margin */}
-          {/* Featured Article */}
+        <div className="grid grid-cols-12 gap-6 mt-6">
           <div className="col-span-12">
             {featuredArticle && (
               <NewsArticle article={featuredArticle} variant="featured" />
             )}
           </div>
 
-          {/* News Cards */}
           <div className="col-span-12 space-y-6">
             {Array.from({ length: Math.ceil(visibleNewsCount / 3) }).map(
               (_, rowIndex) => (
@@ -193,7 +190,6 @@ const AllNews = () => {
             )}
           </div>
 
-          {/* Load More Button */}
           {visibleNewsCount < latestNews.length && (
             <div className="col-span-12 flex justify-center">
               <button
