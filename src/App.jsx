@@ -14,8 +14,9 @@ import UserInterFace from './components/PatientInterface/Dashbord'
 import PatientData from './components/PatientInterface/PatientData'
 // import '@fortawesome/fontawesome-free/css/all.min.css';
 import Footer from './components/Footer';
-import Dashboard from '../src/components/PatientInterface/Dashbord'
-import Schedule from './components/Schedule.jsx'
+import Dashboard from '../src/components/PatientInterface/Dashbord';
+import News from './components/news';
+import Schedule from './components/Schedule.jsx';
 export default function App() {
   return (
     <>
@@ -27,6 +28,7 @@ export default function App() {
       <Route path="/Profile" element = {<Dashboard/>}/>;
       <Route path="/login" element = {<Login/>}/>;
       <Route path="/Contact" element={<Contact />} />
+      <Route path="/news" element={<News />} />
       <Route path="/aboutus" element={<AboutUs />} />
       {/* <Route path="/dashboard" element={<Dashbord />} /> */}
       <Route path='/UIF' element={<UserInterFace/>}/>
