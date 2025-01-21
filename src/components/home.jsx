@@ -1,319 +1,300 @@
-import React from "react";
-import { motion } from "framer-motion"; 
-import BackgroundVideo from "./bgvideo"; 
-
-// Importing images
-import patientImage from "../assets/patientmanagement.jpg";
+import React, { useState, useEffect } from "react";
+import { motion, useAnimation } from "framer-motion";
+import { ChevronLeft, ChevronRight, Monitor, Calendar } from "lucide-react";
+import locateImage from "../assets/locater.jpg";
 import emergencyImage from "../assets/emergency.jpg";
-import consultingImage from "../assets/consulting.jpg";
-import locationImage from "../assets/locater.jpg";
-import scheduleImage from "../assets/scheduling.jpg";
 import qualityImage from "../assets/qualitydiagno.jpg";
-import expertImage from "../assets/expertconsultation.jpg";
-import supportImage from "../assets/support.jpg";
-import bookingImage from "../assets/booking.png";
-import recordImage from "../assets/record.png";
-import treatedImage from "../assets/treated.png";
-import healthImage from "../assets/healthcare.jpg";
+import homeImage from "../assets/home.jpg";
+import home2Image from "../assets/home2.jpg";
+import home3Image from "../assets/home3.jpg";
+import peopleImage from "../assets/people.jpg";
+import people1Image from "../assets/people1.jpg";
+import people2Image from "../assets/people2.jpg";
+import { useInView } from "react-intersection-observer";
 
-// Core Services Data
-const services = [
-  {
-    title: "Patient Management",
-    description:
-      "Provide users with the ability to access their health records.",
-    image: patientImage,
-  },
-  {
-    title: "Emergency Services",
-    description: "Round-the-clock access to emergency care.",
-    image: emergencyImage,
-  },
-  {
-    title: "Nearby Hospital Locator",
-    description: "Tracks and displays nearby hospitals on an interactive map.",
-    image: locationImage,
-  },
-  {
-    title: "Telehealth",
-    description: "Virtual consultations with our top specialists.",
-    image: consultingImage,
-  },
-  {
-    title: "Appointment Scheduling",
-    description:
-      "Feature that allows users to book, reschedule, or cancel appointments with hospitals.",
-    image: scheduleImage,
-  },
-];
+// Feature Card Component
+const FeatureCard = ({ title, subtitle, description, imgSrc, buttonText }) => {
+  const controls = useAnimation();
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.2 });
 
-const Home = () => {
-  // Framer Motion Variants
-  const fadeInFromLeft = {
-    hidden: { opacity: 0, x: -100 },
-    visible: { opacity: 1, x: 0 },
-  };
-
-  const fadeInFromBottom = {
-    hidden: { opacity: 0, y: 100 },
-    visible: { opacity: 1, y: 0 },
-  };
+  useEffect(() => {
+    if (inView) controls.start("visible");
+  }, [controls, inView]);
 
   return (
-    <div className="min-h-screen font-sans overflow-hidden">
-      {/* Hero Section with Background Video */}
-      <section className="relative text-white" style={{ height: "90vh" }}>
-        <BackgroundVideo />
-        <div className="absolute top-0 left-0 w-full h-full bg-black opacity-30"></div>
-
-        <motion.div
-          className="relative z-10 flex flex-col items-center justify-center h-full text-center px-4"
-          initial="hidden"
-          animate="visible"
-          transition={{ duration: 1 }}
-          variants={fadeInFromLeft}
-        >
-          <h1 className="text-5xl font-extrabold leading-snug mb-4 text-[#03045e]">
-            LifeLine Devs: Transforming Healthcare Through Innovation
-          </h1>
-          <p className="text-lg max-w-2xl mx-auto mb-8 text-[#03045e] font-bold">
-            Seamlessly modernize healthcare systems with cutting-edge
-            technology, empowering providers and patients alike.
-          </p>
-        </motion.div>
-      </section>
-
-      {/* Core Services Section */}
-      <motion.section
-        className="bg-[#fcefef] py-16"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 1 }}
-        variants={fadeInFromBottom}
-      >
-        <div className="container mx-auto">
-          <h2 className="text-4xl font-bold text-center text-[#0077b6] mb-12">
-            Our Core Services
-          </h2>
-          <div className="flex justify-center gap-12">
-            {services.map((service, index) => (
-              <motion.div
-                key={index}
-                className="w-[300px] bg-white rounded-lg shadow-lg p-6 text-center group hover:scale-105 transition-transform duration-500"
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.2, duration: 0.8 }}
-                variants={fadeInFromBottom}
-              >
-                <div className="overflow-hidden">
-                  <img
-                    src={service.image}
-                    alt={service.title}
-                    className="rounded-t-lg mb-4 object-cover w-full h-64 transition-transform duration-300 group-hover:scale-110"
-                  />
-                </div>
-                <h3 className="text-2xl font-bold text-[#03045e]">{service.title}</h3>
-                <p className="text-[#03045e]">{service.description}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </motion.section>
-
-      {/* Advanced Care Section */}
-      <motion.section
-        className="relative bg-blue-100 py-20"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 1 }}
-        variants={fadeInFromLeft}
-      >
-        <div className="container mx-auto flex flex-col lg:flex-row items-center px-4">
-          <div className="lg:w-1/2">
-            <motion.img
-              src={healthImage}
-              alt="Compassionate healthcare"
-              className="rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300"
-              initial={{ scale: 0.8 }}
-              whileInView={{ scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-            />
-          </div>
-          <div className="lg:w-1/2 mt-8 lg:mt-0 text-center lg:text-left lg:ml-10">
-            <h1 className="text-4xl font-extrabold text-blue-800 mb-4 leading-tight">
-              Advanced Care, Close to Home
-            </h1>
-            <p className="text-lg text-gray-900 mb-6">
-              Experience world-class healthcare services tailored to your needs, from advanced diagnostics and personalized treatments to seamless telehealth options and modern patient management tools - all under one roof.
-            </p>
-            <a
-              href="#"
-              className="bg-yellow-500 hover:bg-yellow-600 text-white py-3 px-6 rounded-lg shadow-md transition duration-300"
-            >
-              Learn More
-            </a>
-          </div>
-        </div>
-      </motion.section>
-
-      {/* Trusted by Millions Section */}
-      <motion.section
-        className="py-20"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 1 }}
-        variants={fadeInFromLeft}
-      >
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold text-blue-800 mb-6">
-            Trusted by Millions
-          </h2>
-          <p className="text-lg text-gray-700 mb-12">
-            Our commitment to innovation and quality healthcare has earned the
-            trust of families worldwide.
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            {[  
-              {
-                image: qualityImage,
-                title: "Quality Diagnosis",
-                description:
-                  "We provide the highest quality diagnostics for accurate results.",
-              },
-              {
-                image: expertImage,
-                title: "Expert Consultation",
-                description:
-                  "Consult with top healthcare professionals from around the world.",
-              },
-              {
-                image: supportImage,
-                title: "24/7 Support",
-                description:
-                  "Get support anytime you need with our dedicated customer service.",
-              },
-            ].map((service, index) => (
-              <motion.div
-                key={index}
-                className="p-6 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow"
-                whileHover={{ scale: 1.05 }}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5, delay: index * 0.2 }}
-              >
-                <img
-                  src={service.image}
-                  alt={service.title}
-                  className="w-full h-64 object-cover rounded-md mb-4"
-                />
-                <h3 className="text-xl font-semibold text-blue-700 mb-2">
-                  {service.title}
-                </h3>
-                <p className="text-gray-600">{service.description}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </motion.section>
-
-      {/* How We Work Section */}
-      <motion.section
-        className="py-20 bg-blue-200"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 1 }}
-        variants={fadeInFromBottom}
-      >
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold text-blue-900 mb-6">How We Work</h2>
-          <p className="text-lg text-gray-800 mb-12">
-            Discover our patient-centered approach to healthcare. We ensure
-            seamless care tailored to meet every individual's needs.
-          </p>
-          <div className="flex flex-col lg:flex-row justify-center items-center space-y-8 lg:space-y-0 lg:space-x-12">
-            <div className="text-center max-w-sm">
-              <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
-                <img
-                  src={bookingImage}
-                  alt="Book Your Appointment"
-                  className="w-20 h-20 mx-auto mb-4"
-                />
-                <h3 className="text-xl font-semibold text-blue-800 mb-2">
-                  Book Your Appointment
-                </h3>
-                <p className="text-gray-600">
-                  Schedule appointments quickly through our intuitive platform.
-                </p>
-              </div>
-            </div>
-            <div className="text-center max-w-sm">
-              <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
-                <img
-                  src={recordImage}
-                  alt="Access Your Records"
-                  className="w-20 h-20 mx-auto mb-4"
-                />
-                <h3 className="text-xl font-semibold text-blue-800 mb-2">
-                  Access Your Records
-                </h3>
-                <p className="text-gray-600">
-                  View your health data securely anytime, anywhere.
-                </p>
-              </div>
-            </div>
-            <div className="text-center max-w-sm">
-              <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
-                <img
-                  src={treatedImage}
-                  alt="Get Treated"
-                  className="w-20 h-20 mx-auto mb-4"
-                />
-                <h3 className="text-xl font-semibold text-blue-800 mb-2">
-                  Get Treated
-                </h3>
-                <p className="text-gray-600">
-                  Receive care from highly skilled professionals using the
-                  latest advancements.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </motion.section>
-
-      {/* Call to Action */}
-      <motion.section
-        className="py-16 bg-blue-900 text-white"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 1 }}
-        variants={fadeInFromBottom}
-      >
-        <div className="container mx-auto text-center">
-          <h2 className="text-4xl font-bold mb-4">
-            Ready to Transform Your Health?
-          </h2>
-          <p className="text-lg mb-8">
-            Take the first step towards better healthcare today. We’re here to
-            help you every step of the way.
-          </p>
-          <a
-            href="#"
-            className="bg-yellow-500 hover:bg-yellow-600 text-blue-900 py-3 px-6 rounded-lg shadow-md transition duration-300 font-semibold"
-          >
-            Get Started
-          </a>
-        </div>
-      </motion.section>
-    </div>
+    <motion.div
+      ref={ref}
+      className="bg-white border border-[#0077b6] rounded-lg p-8 transform transition-transform hover:scale-105 hover:border-[#0077b6]/80"
+      initial="hidden"
+      animate={controls}
+      variants={{
+        hidden: { opacity: 0, y: 50 },
+        visible: { opacity: 1, y: 0 },
+      }}
+      transition={{ duration: 0.6 }}
+    >
+      <img src={imgSrc} alt={title} className="w-full h-48 object-cover rounded-lg mb-6" />
+      <div className="text-[#0077b6] text-sm mb-2">{subtitle}</div>
+      <h2 className="text-[#0077b6] text-2xl font-bold mb-4">{title}</h2>
+      <button className="border border-[#0077b6] text-[#0077b6] px-6 py-2 rounded-full hover:bg-[#0077b6] hover:text-white transition-colors">
+        {buttonText}
+      </button>
+    </motion.div>
   );
 };
 
-export default Home;
+const TestimonialCard = ({ name, role, company, quote, imgSrc, rating, date }) => {
+  const controls = useAnimation();
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.2 });
+
+  useEffect(() => {
+    if (inView) controls.start("visible");
+  }, [controls, inView]);
+
+  return (
+    <motion.div
+      ref={ref}
+      className="bg-white border border-[#0077b6] rounded-lg p-6 w-full max-w-2xl mx-auto flex items-center"
+      initial="hidden"
+      animate={controls}
+      variants={{
+        hidden: { opacity: 0, x: -50 },
+        visible: { opacity: 1, x: 0 },
+      }}
+      transition={{ duration: 0.6 }}
+    >
+      {/* Image Section */}
+      <div className="w-1/3 flex-shrink-0 h-48"> {/* Change here */}
+      <img
+  src={imgSrc}
+  alt={name}
+  className="w-full h-full object-contain rounded-lg" // Changed to object-contain
+/>
+
+      </div>
+      {/* Content Section */}
+      <div className="w-2/3 pl-6">
+        <p className="text-[#0077b6] text-base mb-4">"{quote}"</p>
+        <div className="flex items-center mb-2">
+          {[...Array(5)].map((_, index) => (
+            <svg
+              key={index}
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              fill={index < rating ? "#FFD700" : "#E4E4E4"}
+              viewBox="0 0 20 20"
+              className="mr-1"
+            >
+              <path d="M10 15l-5.236 3.292 1.418-6.236-4.864-4.732 6.264-.516L10 0l2.418 6.792 6.264.516-4.864 4.732 1.418 6.236z" />
+            </svg>
+          ))}
+        </div>
+        <h3 className="text-[#0077b6] font-bold text-lg">{name}</h3>
+        <p className="text-[#0077b6] text-sm">{role}</p>
+        <p className="text-[#0077b6] text-sm">{company}</p>
+        <p className="text-[#0077b6] text-sm mt-2">{date}</p>
+      </div>
+    </motion.div>
+  );
+};
+
+export default function HealthcareSite() {
+  const [testimonialIndex, setTestimonialIndex] = useState(0);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const images = [homeImage, home2Image, home3Image];
+
+  const testimonials = [
+    {
+      name: "Maxine Whiteside",
+      role: "Director of Health Information Systems",
+      company: "Commonwealth Pain & Spine",
+      quote: "I was able to close 300 charts in three days because of how streamlined and easy charting is.",
+      imgSrc: peopleImage,
+      rating: 5,
+      date: "January 2025",
+    },
+    {
+      name: "Stephen Bradley",
+      role: "Asst. Director of IT",
+      company: "HeartPlace",
+      quote: "Every aspect is superior, from the scheduling to billing to the reports we can pull.",
+      imgSrc: people1Image,
+      rating: 4,
+      date: "December 2024",
+    },
+    {
+      name: "John Doe",
+      role: "Chief Medical Officer",
+      company: "MedTech Solutions",
+      quote: "This platform has transformed how we manage patient data. It's incredibly intuitive and efficient.",
+      imgSrc: people2Image,
+      rating: 5,
+      date: "November 2024",
+    },
+  ];
+
+  useEffect(() => {
+    const testimonialInterval = setInterval(() => {
+      setTestimonialIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
+    }, 3000);
+
+    const imageInterval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 3000);
+
+    return () => {
+      clearInterval(testimonialInterval);
+      clearInterval(imageInterval);
+    };
+  }, []);
+
+  const nextTestimonial = () => {
+    setTestimonialIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
+  };
+
+  const prevTestimonial = () => {
+    setTestimonialIndex((prevIndex) => (prevIndex - 1 + testimonials.length) % testimonials.length);
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-r from-[#03045e]/90 to-[#0077b6]/80">
+      {/* Hero Section */}
+      <div className="relative h-screen">
+        <img
+          src={images[currentImageIndex]}
+          alt="Healthcare Background"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-black bg-opacity-50" />
+        <motion.div
+          className="relative h-full flex items-center"
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          <div className="container mx-auto px-6">
+            <div className="max-w-2xl">
+              <h1 className="text-5xl font-bold text-white mb-6">
+                Providing care can be simpler
+              </h1>
+              <p className="text-xl text-white mb-8">
+                Make achieving your best possible outcomes easier with our all-in-one healthcare solution.
+              </p>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Features Section */}
+      <div className="py-20">
+        <div className="container mx-auto px-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <FeatureCard
+              title="Quickly locate hospitals and healthcare facilities in your area"
+              subtitle="Find Care When You Need It"
+              imgSrc={locateImage}
+              buttonText="Nearby Hospital Locater"
+            />
+            <FeatureCard
+              title="Schedule appointments online 24/7 at your convenience"
+              subtitle="Book Care Your Way"
+              imgSrc={emergencyImage}
+              buttonText="Scheduling Appointment"
+            />
+            <FeatureCard
+              title="Get immediate assistance and critical care coordination"
+              subtitle="24/7 Emergency Care Access"
+              imgSrc={emergencyImage}
+              buttonText="Emergency Services"
+            />
+            <FeatureCard
+              title="Access and manage your medical records securely"
+              subtitle="Your Health History at Hand"
+              imgSrc={qualityImage}
+              buttonText="Health Records"
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* Testimonials Section */}
+      <div className="py-20">
+        <div className="container mx-auto px-6">
+          <h2 className="text-3xl font-bold text-white text-center mb-8">How customers feel about us</h2>
+          <div className="relative w-full max-w-xl mx-auto">
+            <TestimonialCard {...testimonials[testimonialIndex]} />
+            <div className="flex justify-between mt-6">
+              <button
+                onClick={prevTestimonial}
+                className="bg-[#0077b6] text-white rounded-full p-2 hover:bg-[#005f99] transition"
+              >
+                <ChevronLeft className="w-6 h-6" />
+              </button>
+              <button
+                onClick={nextTestimonial}
+                className="bg-[#0077b6] text-white rounded-full p-2 hover:bg-[#005f99] transition"
+              >
+                <ChevronRight className="w-6 h-6" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Call to Action Section */}
+      <div className="py-20">
+        <div className="container mx-auto px-6">
+          <h2 className="text-3xl font-bold text-white text-center mb-12">Let us help you</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <motion.div
+              className="bg-white rounded-lg p-8"
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <Monitor className="text-[#0077b6] w-12 h-12 mb-4" />
+              <h3 className="text-xl font-bold text-[#0077b6] mb-2">Dig deeper into our solution</h3>
+              <p className="text-gray-800 mb-6">
+                See how it can help improve efficiency, performance, and outcomes.
+              </p>
+              <button className="border border-[#0077b6] text-[#0077b6] px-6 py-2 rounded-full hover:bg-[#0077b6] hover:text-white">
+                Learn more
+              </button>
+            </motion.div>
+            <motion.div
+              className="bg-white rounded-lg p-8"
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <Calendar className="text-[#0077b6] w-12 h-12 mb-4" />
+              <h3 className="text-xl font-bold text-[#0077b6] mb-2">Get a personalized demo</h3>
+              <p className="text-gray-800 mb-6">
+                Submit a request, and we'll schedule a brief call.
+              </p>
+              <button className="border border-[#0077b6] text-[#0077b6] px-6 py-2 rounded-full hover:bg-[#0077b6] hover:text-white">
+                Schedule a demo today
+              </button>
+            </motion.div>
+          </div>
+        </div>
+      </div>
+
+      {/* Newsletter Section */}
+      <div className="bg-gradient-to-r from-[#03045e]/90 to-[#0077b6]/80 py-20 text-center text-white">
+        <h2 className="text-3xl font-bold mb-6">Subscribe to Our Newsletter</h2>
+        <p className="text-lg mb-6">Get the latest healthcare tips and updates directly to your inbox.</p>
+        <input
+          type="email"
+          placeholder="Enter your email"
+          className="px-4 py-2 rounded-full text-black"
+        />
+        <button className="ml-4 px-6 py-2 bg-white text-[#03045e] rounded-full">
+          Subscribe
+        </button>
+      </div>
+    </div>
+  );
+}

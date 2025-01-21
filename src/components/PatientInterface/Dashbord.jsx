@@ -9,6 +9,8 @@ import {
   Heart 
 } from 'lucide-react';
 import ScheduleAppointment from '../schedule';
+import MyApp from './MyApp';
+
 
 const Dashboard = () => (
   <div className="p-6">
@@ -37,10 +39,9 @@ const BookAppointment = () => (
 
 const Calendar = () => (
   <div className="p-6">
-    <h2 className="text-2xl font-bold mb-4">Calendar</h2>
+    <h2 className="text-2xl font-bold mb-4"><MyApp/></h2>
     <div className="bg-white p-4 rounded-lg shadow">
-      <p>Your schedule will appear here</p>
-    </div>
+      <p>Your schedule will appear here</p>    </div>
   </div>
 );
 
@@ -104,11 +105,11 @@ const SidebarLayout = () => {
               key={item.id}
               onClick={() => setActiveTab(item.id)}
               className={`w-full flex items-center space-x-3 px-6 py-3 text-gray-600 hover:bg-gray-50 transition-colors duration-200 ${
-                activeTab === item.id ? 'bg-gray-100 border-r-4 border-red-500' : ''
+                activeTab === item.id ? 'bg-gray-100 border-r-4 border-[#03045e]' : ''
               }`}
             >
-              <span className={activeTab === item.id ? 'text-red-500' : ''}>{item.icon}</span>
-              <span className={`${activeTab === item.id ? 'font-medium text-red-500' : ''}`}>
+              <span className={activeTab === item.id ? 'text-blue-500' : ''}>{item.icon}</span>
+              <span className={`${activeTab === item.id ? 'font-medium text-yellow-500' : ''}`}>
                 {item.text}
               </span>
             </button>

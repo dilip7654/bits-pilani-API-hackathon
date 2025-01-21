@@ -1,86 +1,96 @@
-import { Link } from "react-router-dom";
-import { useContext } from "react";
-import {
-  FaHospitalAlt,
-  FaCalendarAlt,
-  FaSignInAlt,
-  FaUserPlus,
-  FaUserCircle,
-  FaSignOutAlt,
-  FaNewspaper,
-} from "react-icons/fa";
+import React, { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { signOut } from "firebase/auth";
+import { auth } from "./Firebase";
 import { AuthContext } from "./AuthContext";
 
 export default function Navbar() {
   const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
+  const navigate = useNavigate();
 
-  const handleLogout = () => {
-    setIsAuthenticated(false);
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      setIsAuthenticated(false);
+      navigate("/login");
+    } catch (err) {
+      console.error("Logout Error:", err.message);
+    }
   };
 
   return (
-    <nav className="z-50 shadow-lg bg-gradient-to-r from-[#00b4d8] via-[#0077b6] to-[#03045e]">
-      <div className="h-16 flex justify-between items-center px-8 md:px-20">
-        {/* Brand Name */}
-        <div className="flex items-center">
-          <h2 className="text-2xl md:text-3xl font-extrabold bg-gradient-to-r from-[#aff2ff] to-[#f8e16c] bg-clip-text text-transparent">
+    <div className="bg-[#03045e]/40 fixed top-0 left-0 w-full z-50 backdrop-blur-md border-b border-transparent">
+      <nav className="flex items-center justify-center h-16">
+        <div className="flex items-center justify-between w-full max-w-7xl px-6 space-x-8">
+          {/* Brand Name (Lifeline Devs) Button */}
+          <button
+            onClick={() => navigate("/")}
+            className="text-white text-3xl font-bold hover:text-[#00b4d8] transition-all duration-300 text-shadow-md"
+          >
             Lifeline Devs
-          </h2>
+          </button>
+
+          {/* Navigation Links */}
+          <div className="flex space-x-8">
+            <Link
+              to="/Map"
+              className="text-white/80 hover:text-white hover:underline hover:underline-offset-8 transition-all duration-300 text-shadow-md"
+            >
+              Nearby Hospitals
+            </Link>
+            <Link
+              to="/Schedule"
+              className="text-white/80 hover:text-white hover:underline hover:underline-offset-8 transition-all duration-300 text-shadow-md"
+            >
+              Schedule Appointment
+            </Link>
+            <Link
+              to="/news"
+              className="text-white/80 hover:text-white hover:underline hover:underline-offset-8 transition-all duration-300 text-shadow-md"
+            >
+              News
+            </Link>
+            <Link
+              to="/Aboutus"
+              className="text-white/80 hover:text-white hover:underline hover:underline-offset-8 transition-all duration-300 text-shadow-md"
+            >
+              About Us
+            </Link>
+
+            {isAuthenticated ? (
+              <>
+                <Link
+                  to="/Profile"
+                  className="text-white/80 hover:text-white hover:underline hover:underline-offset-8 transition-all duration-300 text-shadow-md"
+                >
+                  Profile
+                </Link>
+                <button
+                  onClick={handleLogout}
+                  className="text-white/80 border border-white px-4 py-1 rounded-full hover:bg-white hover:text-[#03045e] transition-all duration-300"
+                >
+                  Logout
+                </button>
+              </>
+            ) : (
+              <>
+                <Link
+                  to="/login"
+                  className="text-white/80 hover:text-white hover:underline hover:underline-offset-8 transition-all duration-300 text-shadow-md"
+                >
+                  Login
+                </Link>
+                <Link
+                  to="/signup"
+                  className="text-white/80 border border-white px-4 py-1 rounded-full hover:bg-white hover:text-[#03045e] transition-all duration-300"
+                >
+                  Sign Up
+                </Link>
+              </>
+            )}
+          </div>
         </div>
-
-        {/* Navigation Links */}
-        <ul className="flex gap-4 md:gap-6 text-sm md:text-base">
-          <Link to="/Map">
-            <li className="flex items-center gap-2 px-4 py-2 rounded-md bg-gradient-to-r from-[#f8e16c] to-[#fbb13c] text-[#03045e] font-semibold hover:from-[#fbb13c] hover:to-[#f8e16c] transition-all duration-300 ease-in-out transform hover:scale-105 shadow-md hover:shadow-lg cursor-pointer">
-              <FaHospitalAlt /> Nearby Hospitals
-            </li>
-          </Link>
-          <Link to="/Schedule">
-            <li className="flex items-center gap-2 px-4 py-2 rounded-md bg-gradient-to-r from-[#f8e16c] to-[#fbb13c] text-[#03045e] font-semibold hover:from-[#fbb13c] hover:to-[#f8e16c] transition-all duration-300 ease-in-out transform hover:scale-105 shadow-md hover:shadow-lg cursor-pointer">
-              <FaCalendarAlt /> Schedule Appointment
-            </li>
-          </Link>
-          <Link to="/aboutus">
-            <li className="flex items-center gap-2 px-4 py-2 rounded-md bg-gradient-to-r from-[#f8e16c] to-[#fbb13c] text-[#03045e] font-semibold hover:from-[#fbb13c] hover:to-[#f8e16c] transition-all duration-300 ease-in-out transform hover:scale-105 shadow-md hover:shadow-lg cursor-pointer">
-              <FaUserPlus /> About Us
-            </li>
-          </Link>
-
-          {isAuthenticated ? (
-            <>
-              <Link to="/dashboard">
-                <li className="flex items-center gap-2 px-4 py-2 rounded-md bg-gradient-to-r from-[#00b4d8] to-[#0077b6] text-white font-semibold hover:from-[#0077b6] hover:to-[#00b4d8] transition-all duration-300 ease-in-out transform hover:scale-105 shadow-md hover:shadow-lg cursor-pointer">
-                  <FaUserCircle /> Profile
-                </li>
-              </Link>
-              <li
-                onClick={handleLogout}
-                className="flex items-center gap-2 px-4 py-2 rounded-md bg-gradient-to-r from-[#f8e16c] to-[#fbb13c] text-[#03045e] font-semibold hover:from-[#fbb13c] hover:to-[#f8e16c] transition-all duration-300 ease-in-out transform hover:scale-105 shadow-md hover:shadow-lg cursor-pointer"
-              >
-                <FaSignOutAlt /> Logout
-              </li>
-            </>
-          ) : (
-            <>
-              <Link to="/login">
-                <li className="flex items-center gap-2 px-4 py-2 rounded-md bg-gradient-to-r from-[#f8e16c] to-[#fbb13c] text-[#03045e] font-semibold hover:from-[#fbb13c] hover:to-[#f8e16c] transition-all duration-300 ease-in-out transform hover:scale-105 shadow-md hover:shadow-lg cursor-pointer">
-                  <FaSignInAlt /> Login
-                </li>
-              </Link>
-              <Link to="/news">
-                <li className="flex items-center gap-2 px-4 py-2 rounded-md bg-gradient-to-r from-[#f8e16c] to-[#fbb13c] text-[#03045e] font-semibold hover:from-[#fbb13c] hover:to-[#f8e16c] transition-all duration-300 ease-in-out transform hover:scale-105 shadow-md hover:shadow-lg cursor-pointer">
-                  <FaNewspaper /> News
-                </li>
-              </Link>
-              <Link to="/signup">
-                <li className="flex items-center gap-2 px-4 py-2 rounded-md bg-gradient-to-r from-[#00b4d8] to-[#0077b6] text-white font-semibold hover:from-[#0077b6] hover:to-[#00b4d8] transition-all duration-300 ease-in-out transform hover:scale-105 shadow-md hover:shadow-lg cursor-pointer">
-                  <FaUserPlus /> Sign Up
-                </li>
-              </Link>
-            </>
-          )}
-        </ul>
-      </div>
-    </nav>
+      </nav>
+    </div>
   );
 }
