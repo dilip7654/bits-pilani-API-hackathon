@@ -90,7 +90,7 @@ const SidebarLayout = () => {
   const ActiveComponent = sidebarItems.find(item => item.id === activeTab)?.component || Dashboard;
 
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="flex h-screen bg-gray-100 mt-20">
       {/* Sidebar */}
       <div className="w-64 bg-white shadow-lg">
         {/* Logo */}

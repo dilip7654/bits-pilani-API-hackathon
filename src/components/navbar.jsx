@@ -6,7 +6,7 @@ import { AuthContext } from "./AuthContext";
 import { onAuthStateChanged, setPersistence, browserLocalPersistence } from "firebase/auth";
 import { FaHome, FaHospitalAlt, FaCalendarAlt, FaSignInAlt, FaUserPlus, FaInfoCircle, FaEnvelope } from "react-icons/fa";
 
-
+import { CgProfile } from "react-icons/cg";
 
 export default function Navbar() {
     const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
