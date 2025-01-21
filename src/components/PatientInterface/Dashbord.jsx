@@ -34,17 +34,14 @@ const Dashboard = () => (
 const BookAppointment = () => (
   <div className="p-6">
     <h2 className="text-2xl font-bold mb-4"><ScheduleAppointment/></h2>
-    <div className="bg-white p-4 rounded-lg shadow">
-      <p>Book your next appointment here</p>
-    </div>
+    
   </div>
 );
 
 const Calendar = () => (
   <div className="p-6">
     <h2 className="text-2xl font-bold mb-4"><MyApp/></h2>
-    <div className="bg-white p-4 rounded-lg shadow">
-      <p>Your schedule will appear here</p>    </div>
+    
   </div>
 );
 
@@ -60,20 +57,18 @@ const Report = () => (
 const Feedback = () => (
   <div className="p-6">
     <h2 className="text-2xl font-bold mb-4"><FeedbackForm/></h2>
-    <div className="bg-white p-4 rounded-lg shadow">
-      <p>Share your feedback here</p>
-    </div>
+    
   </div>
 );
 
-const Setting = () => (
-  <div className="p-6">
-    <h2 className="text-2xl font-bold mb-4">Settings</h2>
-    <div className="bg-white p-4 rounded-lg shadow">
-      <p>Manage your account settings here</p>
-    </div>
-  </div>
-);
+// const Setting = () => (
+//   <div className="p-6">
+//     <h2 className="text-2xl font-bold mb-4">Settings</h2>
+//     <div className="bg-white p-4 rounded-lg shadow">
+//       <p>Manage your account settings here</p>
+//     </div>
+//   </div>
+// );
 
 const SidebarLayout = () => {
   const [activeTab, setActiveTab] = useState('Dashboard');
@@ -84,13 +79,13 @@ const SidebarLayout = () => {
     { id: 'Calendar', icon: <CalendarDays size={20} />, text: 'Calendar', component: Calendar },
     { id: 'Report', icon: <FileText size={20} />, text: 'Report', component: Report },
     { id: 'Feedback', icon: <MessageSquare size={20} />, text: 'Feedback', component: Feedback },
-    { id: 'Setting', icon: <Settings size={20} />, text: 'Setting', component: Setting }
+    // { id: 'Setting', icon: <Settings size={20} />, text: 'Setting', component: Setting }
   ];
 
   const ActiveComponent = sidebarItems.find(item => item.id === activeTab)?.component || Dashboard;
 
   return (
-    <div className="flex h-screen bg-gray-100 mt-20">
+    <div className="flex h-screen bg-gray-100 mt-14">
       {/* Sidebar */}
       <div className="w-64 bg-white shadow-lg">
         {/* Logo */}
