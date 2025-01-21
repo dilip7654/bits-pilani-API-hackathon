@@ -1,22 +1,45 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { auth } from "./Firebase";
 import { AuthContext } from "./AuthContext";
+import { signOut, onAuthStateChanged, setPersistence, browserLocalPersistence } from "firebase/auth";
+import { FaHome, FaHospitalAlt, FaCalendarAlt, FaSignInAlt, FaUserPlus, FaInfoCircle, FaEnvelope } from "react-icons/fa";
+
+
 
 export default function Navbar() {
-  const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
-  const navigate = useNavigate();
+    const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
+    const navigate = useNavigate();
 
-  const handleLogout = async () => {
-    try {
-      await signOut(auth);
-      setIsAuthenticated(false);
-      navigate("/login");
-    } catch (err) {
-      console.error("Logout Error:", err.message);
-    }
-  };
+    useEffect(() => {
+        // Set persistence to local storage
+        setPersistence(auth, browserLocalPersistence)
+            .then(() => {
+                // Monitor authentication state
+                onAuthStateChanged(auth, (user) => {
+                    if (user) {
+                        setIsAuthenticated(true);
+                    } else {
+                        setIsAuthenticated(false);
+                    }
+                });
+            })
+            .catch((error) => {
+                console.error("Persistence Error:", error.message);
+            });
+    }, [setIsAuthenticated]);
+
+    const handleLogout = async () => {
+        try {
+            await signOut(auth);
+            setIsAuthenticated(false);
+            navigate("/login");
+        } catch (err) {
+            console.error("Logout Error:", err.message);
+        }
+    };
+
 
   return (
     <div className="bg-[#03045e]/40 fixed top-0 left-0 w-full z-50 backdrop-blur-md border-b border-transparent">
@@ -69,39 +92,37 @@ export default function Navbar() {
             </Link>
 
             {isAuthenticated ? (
-              <>
-                <Link
-                  to="/Profile"
-                  className="text-white/80 hover:text-white hover:underline hover:underline-offset-8 transition-all duration-300 text-shadow-md"
-                >
-                  Profile
-                </Link>
-                <button
-                  onClick={handleLogout}
-                  className="text-white/80 border border-white px-4 py-1 rounded-full hover:bg-white hover:text-[#03045e] transition-all duration-300"
-                >
-                  Logout
-                </button>
-              </>
-            ) : (
-              <>
-                <Link
-                  to="/login"
-                  className="text-white/80 hover:text-white hover:underline hover:underline-offset-8 transition-all duration-300 text-shadow-md"
-                >
-                  Login
-                </Link>
-                <Link
-                  to="/signup"
-                  className="text-white/80 border border-white px-4 py-1 rounded-full hover:bg-white hover:text-[#03045e] transition-all duration-300"
-                >
-                  Sign Up
-                </Link>
-              </>
+                        <>
+                            <Link to="/Profile">
+                                <li className="flex items-center gap-2 text-[#fcefef] font-medium px-1 py-1.5 rounded-lg hover:bg-[#fbb13c] hover:text-[#03045e] transition-all duration-300 ease-in-out transform hover:scale-105 cursor-pointer shadow-md hover:shadow-lg">
+                                    <CgProfile /> Profile
+                                </li>
+                            </Link>
+                            <button
+                                onClick={handleLogout}
+                                className="flex items-center gap-2 text-[#fcefef] font-medium px-1 py-1.5 rounded-lg hover:bg-[#fbb13c] hover:text-[#03045e] transition-all duration-300 ease-in-out transform hover:scale-105 cursor-pointer shadow-md hover:shadow-lg"
+                            >
+                                <FaSignInAlt /> Logout
+                            </button>
+                        </>
+                    ) : (
+                        <>
+                            <Link to="/login">
+                                <li className="flex items-center gap-2 text-[#fcefef] font-medium px-1 py-1.5 rounded-lg hover:bg-[#fbb13c] hover:text-[#03045e] transition-all duration-300 ease-in-out transform hover:scale-105 cursor-pointer shadow-md hover:shadow-lg">
+                                    <FaSignInAlt /> Login
+                                </li>
+                            </Link>
+                            <Link to="/signup">
+                                <li className="flex items-center gap-2 text-[#03045e] font-medium px-1 py-1.5 bg-[#f8e16c] rounded-lg hover:bg-[#fbb13c] hover:text-[#03045e] transition-all duration-300 ease-in-out transform hover:scale-105 cursor-pointer shadow-md hover:shadow-lg">
+                                    <FaUserPlus /> Sign Up
+                                </li>
+                            </Link>
+                        </>
             )}
           </div>
         </div>
       </nav>
     </div>
   );
+
 }
