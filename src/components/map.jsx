@@ -6,15 +6,14 @@ import {
   Clock,
   Star,
   Navigation,
-  ChevronRight,
   Stethoscope,
   Activity,
   Users,
   MapPin,
-  Mail,  // Added Mail
-  Globe,  // Added Globe
-  BedDouble,  // Added BedDouble
-  Clock8    // Added Clock8
+  Mail,
+  Globe,
+  BedDouble,
+  Clock8
 } from 'lucide-react';
 import { Alert, AlertDescription } from "./ui/alert";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/dialog";
@@ -23,8 +22,8 @@ const MOCK_STATS = {
   specialties: '45+ Available',
   doctors: '500+ Active'
 };
+
 const HospitalDetails = ({ hospital, isOpen, onClose }) => {
-  // Mock additional details that would normally come from API
   const details = {
     description: `${hospital.name} is a leading healthcare facility providing comprehensive medical services to the community. Located in ${hospital.location}, we are committed to delivering exceptional patient care.`,
     email: "contact@" + hospital.name.toLowerCase().replace(/\s+/g, '') + ".com",
@@ -42,16 +41,15 @@ const HospitalDetails = ({ hospital, isOpen, onClose }) => {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+      <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto rounded-lg shadow-lg">
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold text-[#0077b6]">{hospital.name}</DialogTitle>
         </DialogHeader>
         
         <div className="mt-4">
-          {/* Hero section with rating and distance */}
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center space-x-2">
-              <Star className="w-5 h-5 text-yellow-400" />
+              <Star className="w-5 h-5 text-[#00b4d8]" />
               <span className="font-semibold text-lg">{hospital.rating}</span>
             </div>
             <div className="flex items-center text-gray-600">
@@ -60,7 +58,6 @@ const HospitalDetails = ({ hospital, isOpen, onClose }) => {
             </div>
           </div>
 
-          {/* Location */}
           <div className="flex items-start space-x-3 mb-4">
             <MapPin className="w-5 h-5 text-gray-500 mt-1" />
             <div>
@@ -69,7 +66,6 @@ const HospitalDetails = ({ hospital, isOpen, onClose }) => {
             </div>
           </div>
 
-          {/* Contact Information */}
           <div className="flex items-start space-x-3 mb-4">
             <Mail className="w-5 h-5 text-gray-500 mt-1" />
             <div>
@@ -88,7 +84,6 @@ const HospitalDetails = ({ hospital, isOpen, onClose }) => {
             </div>
           </div>
 
-          {/* Bed Availability */}
           <div className="flex items-start space-x-3 mb-4">
             <BedDouble className="w-5 h-5 text-gray-500 mt-1" />
             <div>
@@ -97,7 +92,6 @@ const HospitalDetails = ({ hospital, isOpen, onClose }) => {
             </div>
           </div>
 
-          {/* Working Hours */}
           <div className="flex items-start space-x-3 mb-4">
             <Clock8 className="w-5 h-5 text-gray-500 mt-1" />
             <div>
@@ -106,13 +100,11 @@ const HospitalDetails = ({ hospital, isOpen, onClose }) => {
             </div>
           </div>
 
-          {/* Description */}
           <div className="mb-6">
             <h3 className="font-semibold mb-2">About</h3>
             <p className="text-gray-600">{details.description}</p>
           </div>
 
-          {/* Departments */}
           <div>
             <h3 className="font-semibold mb-2">Departments</h3>
             <div className="grid grid-cols-2 gap-2">
@@ -127,7 +119,6 @@ const HospitalDetails = ({ hospital, isOpen, onClose }) => {
             </div>
           </div>
 
-          {/* Action Buttons */}
           <div className="flex space-x-4 mt-6">
             <button className="flex-1 bg-[#00b4d8] text-white px-4 py-2 rounded-lg hover:bg-[#0077b6] transition-colors flex items-center justify-center">
               <Phone className="w-4 h-4 mr-2" />
@@ -143,9 +134,7 @@ const HospitalDetails = ({ hospital, isOpen, onClose }) => {
   );
 };
 
-
-
-// Add Emergency Call Handler Component
+// Emergency Call Handler Component
 const EmergencySection = () => {
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
@@ -163,14 +152,13 @@ const EmergencySection = () => {
       setShowAlert(true);
     }
 
-    // Hide alert after 5 seconds
     setTimeout(() => {
       setShowAlert(false);
     }, 5000);
   };
 
   return (
-    <div className="relative bg-red-50 border border-red-100 rounded-2xl p-6 flex flex-col justify-center">
+    <div className="relative bg-red-50/80 border border-white rounded-2xl p-6 flex flex-col justify-center shadow-lg">
       {showAlert && (
         <div className="absolute top-0 left-0 right-0 -mt-4 mx-4">
           <Alert variant={alertType === 'error' ? "destructive" : "default"}>
@@ -202,27 +190,6 @@ const EmergencySection = () => {
   );
 };
 
-
-function calculateDistance(lat1, lon1, lat2, lon2) {
-  const R = 6371; // Earth's radius in kilometers
-  const dLat = toRadians(lat2 - lat1);
-  const dLon = toRadians(lon2 - lon1);
-  
-  const a = 
-    Math.sin(dLat/2) * Math.sin(dLat/2) +
-    Math.cos(toRadians(lat1)) * Math.cos(toRadians(lat2)) * 
-    Math.sin(dLon/2) * Math.sin(dLon/2);
-  
-  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-  return R * c;
-}
-
-function toRadians(degrees) {
-  return degrees * (Math.PI/180);
-}
-
-const LOCATIONIQ_API_KEY = 'pk.5c6589ceff2d916b4b1415fe575d21d2';
-// Updated SearchBar component with search functionality
 const SearchBar = ({ onSearch }) => {
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -248,73 +215,19 @@ const SearchBar = ({ onSearch }) => {
   );
 };
 
-
 const StatCard = ({ icon: Icon, label, value }) => (
-  // ... StatCard component code
-  <div className="bg-white/90 backdrop-blur-sm rounded-lg p-2.5 flex items-center space-x-3">
-  <div className="p-1 bg-[#00b4d8]/10 rounded-lg">
-    <Icon className="w-5 h-5 text-[#0077b6]" />
+  <div className="bg-transparent border border-white rounded-lg p-6 flex items-center space-x-4 shadow-xl">
+    <div className="p-3 bg-[#00b4d8]/10 rounded-full">
+      <Icon className="w-6 h-6 text-[#ffffff]" />
+    </div>
+    <div>
+      <p className="text-s text-white">{label}</p>
+      <p className="font-semibold text-[#e9effa]">{value}</p>
+    </div>
   </div>
-  <div>
-    <p className="text-sm text-gray-600">{label}</p>
-    <p className="font-semibold text-[#0077b6]">{value}</p>
-  </div>
-</div>
-
 );
 
-// Update HospitalCard to include the details modal
-const HospitalCard = ({ hospital }) => {
-  const [showDetails, setShowDetails] = useState(false);
-
-  return (
-    <>
-      <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden">
-        <div className="h-40 bg-gradient-to-r from-[#00b4d8] to-[#0077b6] relative">
-          <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1 flex items-center">
-            <Star className="w-4 h-4 text-yellow-400 mr-1" />
-            <span className="font-semibold">{hospital.rating}</span>
-          </div>
-          <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/50 to-transparent">
-            <h3 className="text-white font-semibold text-lg">{hospital.name}</h3>
-            <p className="text-white/80 text-sm flex items-center">
-              <MapPin className="w-4 h-4 mr-1" /> {hospital.location}
-            </p>
-          </div>
-        </div>
-        <div className="p-4">
-          <div className="flex items-center justify-between mb-3">
-            <div className="flex items-center">
-              <Navigation className="w-4 h-4 text-gray-500 mr-1" />
-              <span className="text-sm text-gray-500">{hospital.distance} km away</span>
-            </div>
-            <span className="text-sm text-gray-600">{hospital.beds} beds available</span>
-          </div>
-          <div className="flex items-center justify-between">
-            <button 
-              onClick={() => setShowDetails(true)}
-              className="px-4 py-2 text-sm bg-[#00b4d8] text-white rounded-lg hover:bg-[#0077b6] transition-colors"
-            >
-              View Details
-            </button>
-            <button className="px-4 py-2 text-sm bg-[#00b4d8]/10 text-[#0077b6] rounded-lg hover:bg-[#00b4d8]/20 transition-colors">
-              Book Appointment
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <HospitalDetails 
-        hospital={hospital}
-        isOpen={showDetails}
-        onClose={() => setShowDetails(false)}
-      />
-    </>
-  );
-};
-
 const LocationIQMap = ({ nearbyHospitals, userLocation, isLoading, error }) => {
-  // ... LocationIQMap component code
   const mapContainerRef = useRef(null);
 
   useEffect(() => {
@@ -323,12 +236,11 @@ const LocationIQMap = ({ nearbyHospitals, userLocation, isLoading, error }) => {
     const initMap = async () => {
       try {
         const map = L.map(mapContainerRef.current).setView([userLocation.lat, userLocation.lng], 13);
-        
+
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
           attribution: '© OpenStreetMap contributors'
         }).addTo(map);
 
-        // Add user location marker
         L.marker([userLocation.lat, userLocation.lng], {
           icon: L.divIcon({
             className: 'bg-blue-500 rounded-full w-4 h-4 border-2 border-white',
@@ -338,7 +250,6 @@ const LocationIQMap = ({ nearbyHospitals, userLocation, isLoading, error }) => {
         .bindPopup('You are here')
         .addTo(map);
 
-        // Add hospital markers
         nearbyHospitals.forEach(hospital => {
           L.marker([hospital.lat, hospital.lng], {
             icon: L.divIcon({
@@ -361,7 +272,6 @@ const LocationIQMap = ({ nearbyHospitals, userLocation, isLoading, error }) => {
       }
     };
 
-    // Load Leaflet
     if (!document.querySelector('#leaflet-css')) {
       const link = document.createElement('link');
       link.id = 'leaflet-css';
@@ -417,7 +327,6 @@ export default function Map() {
   const [filteredHospitals, setFilteredHospitals] = useState([]);
   const [error, setError] = useState(null);
 
-  // Get user's location
   useEffect(() => {
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(
@@ -439,7 +348,6 @@ export default function Map() {
     }
   }, []);
 
-  // Fetch nearby hospitals using LocationIQ API
   useEffect(() => {
     const fetchNearbyHospitals = async () => {
       if (!userLocation) return;
@@ -484,7 +392,6 @@ export default function Map() {
     }
   }, [userLocation]);
 
-  // Handle search functionality
   const handleSearch = (query) => {
     const searchTerm = query.toLowerCase();
     if (!searchTerm) {
@@ -500,9 +407,8 @@ export default function Map() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#fdf4d1] via-[#fcefef] to-[#90e0ef] pb-72">
+    <div className="min-h-screen bg-gradient-to-r from-[#03045e]/90 to-[#0077b6]/80 pb-72 pt-16">
       <div className="max-w-7xl mx-auto p-6">
-        {/* Hero Section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
           <div className="bg-gradient-to-r from-[#0077b6] to-[#00b4d8] rounded-2xl shadow-lg p-7">
             <h1 className="text-3xl font-bold text-white mb-2">
@@ -514,7 +420,6 @@ export default function Map() {
             <SearchBar onSearch={handleSearch} />
           </div>
           
-          {/* Updated Emergency Section */}
           <EmergencySection />
         </div>
 
@@ -536,7 +441,6 @@ export default function Map() {
           />
         </div>
 
-        {/* Main Content */}
         <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
           <div className="flex border-b">
             <button
