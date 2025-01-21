@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { auth } from "./Firebase";
 import { AuthContext } from "./AuthContext";
-import { signOut, onAuthStateChanged, setPersistence, browserLocalPersistence } from "firebase/auth";
+import { onAuthStateChanged, setPersistence, browserLocalPersistence } from "firebase/auth";
 import { FaHome, FaHospitalAlt, FaCalendarAlt, FaSignInAlt, FaUserPlus, FaInfoCircle, FaEnvelope } from "react-icons/fa";
 
 
