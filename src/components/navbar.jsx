@@ -1,87 +1,128 @@
+import React, { useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { FaHome, FaHospitalAlt, FaCalendarAlt, FaSignInAlt, FaUserPlus, FaInfoCircle, FaEnvelope } from "react-icons/fa";
-import { CgProfile } from "react-icons/cg";
-import { signOut } from "firebase/auth";
 import { auth } from "./Firebase";
 import { AuthContext } from "./AuthContext";
-import React, { useContext } from "react";
+import { CgProfile } from "react-icons/cg";
+import { signOut, onAuthStateChanged, setPersistence, browserLocalPersistence } from "firebase/auth";
+import { FaHome, FaHospitalAlt, FaCalendarAlt, FaSignInAlt, FaUserPlus, FaInfoCircle, FaEnvelope } from "react-icons/fa";
+
+
 
 export default function Navbar() {
     const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
-  const handleLogout = async () => {
-    try {
-      await signOut(auth);
-      setIsAuthenticated(false);
-      navigate("/login");
-    } catch (err) {
-      console.error("Logout Error:", err.message);
-    }
-  };
-    return (
-        <nav className="bg-gradient-to-r from-[#0077b6] to-[#00b4d8] shadow-lg">
-            <div className="container mx-auto flex items-center justify-between h-16 px-6 lg:px-12">
-                {/* Brand Name with Animation */}
-                <Link to="/">
-                <div className="text-[#f8e16c] text-2xl font-bold tracking-widest hover:scale-110 transition-transform duration-300 ease-out">
-                    Lifeline Devs
-                </div>
-                </Link>
+    useEffect(() => {
+        // Set persistence to local storage
+        setPersistence(auth, browserLocalPersistence)
+            .then(() => {
+                // Monitor authentication state
+                onAuthStateChanged(auth, (user) => {
+                    if (user) {
+                        setIsAuthenticated(true);
+                    } else {
+                        setIsAuthenticated(false);
+                    }
+                });
+            })
+            .catch((error) => {
+                console.error("Persistence Error:", error.message);
+            });
+    }, [setIsAuthenticated]);
 
-                {/* Navigation Links with Icons and Hover Animation */}
-                <ul className="flex gap-6 text-base">
-                    <Link to="/Map">
-                        <li className="flex items-center gap-2 text-[#fcefef] font-medium px-1 py-1.5 rounded-lg hover:bg-[#fbb13c] hover:text-[#03045e] transition-all duration-300 ease-in-out transform hover:scale-105 cursor-pointer shadow-md hover:shadow-lg">
-                            <FaHospitalAlt /> Nearby Hospitals
-                        </li>
-                    </Link>
-                    <Link to="/Schedule">
-                        <li className="flex items-center gap-2 text-[#fcefef] font-medium px-1 py-1.5 rounded-lg hover:bg-[#fbb13c] hover:text-[#03045e] transition-all duration-300 ease-in-out transform hover:scale-105 cursor-pointer shadow-md hover:shadow-lg">
-                            <FaCalendarAlt /> Schedule Appointment
-                        </li>
-                    </Link>
-                    <Link to="/Contact">
-                        <li className="flex items-center gap-2 text-[#fcefef] font-medium px-1 py-1.5 rounded-lg hover:bg-[#fbb13c] hover:text-[#03045e] transition-all duration-300 ease-in-out transform hover:scale-105 cursor-pointer shadow-md hover:shadow-lg">
-                            <FaEnvelope /> Contact Us
-                        </li>
-                    </Link>
-                    <Link to="/Aboutus">
-                        <li className="flex items-center gap-2 text-[#fcefef] font-medium px-1 py-1.5 rounded-lg hover:bg-[#fbb13c] hover:text-[#03045e] transition-all duration-300 ease-in-out transform hover:scale-105 cursor-pointer shadow-md hover:shadow-lg">
-                            <FaInfoCircle /> About Us
-                        </li>
-                    </Link>
-                    {isAuthenticated ? (
-          <>
-            <Link to="/Profile">
-                        <li className="flex items-center gap-2 text-[#fcefef] font-medium px-1 py-1.5 rounded-lg hover:bg-[#fbb13c] hover:text-[#03045e] transition-all duration-300 ease-in-out transform hover:scale-105 cursor-pointer shadow-md hover:shadow-lg">
-                        <CgProfile /> Profile
-                        </li>
-                    </Link>
-            <button
-              onClick={handleLogout}
-              className="flex items-center gap-2 text-[#fcefef] font-medium px-1 py-1.5 rounded-lg hover:bg-[#fbb13c] hover:text-[#03045e] transition-all duration-300 ease-in-out transform hover:scale-105 cursor-pointer shadow-md hover:shadow-lg"
+    const handleLogout = async () => {
+        try {
+            await signOut(auth);
+            setIsAuthenticated(false);
+            navigate("/login");
+        } catch (err) {
+            console.error("Logout Error:", err.message);
+        }
+    };
+
+
+  return (
+    <div className="bg-[#03045e]/40 fixed top-0 left-0 w-full z-50 backdrop-blur-md border-b border-transparent">
+      <nav className="flex items-center justify-center h-16">
+        <div className="flex items-center justify-between w-full max-w-7xl px-6 space-x-8">
+          {/* Brand Name (Lifeline Devs) Button */}
+          <button
+            onClick={() => navigate("/")}
+            className="text-white text-3xl font-bold transition-transform duration-300 transform hover:scale-110"
+            style={{
+              textShadow:
+                "0 0 5px rgba(0, 180, 216, 1), 0 0 10px rgba(0, 180, 216, 0.8)",
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.textShadow =
+                "0 0 10px rgba(0, 180, 216, 1), 0 0 20px rgba(0, 180, 216, 0.8)";
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.textShadow = "0 0 5px rgba(0, 180, 216, 1)";
+            }}
+          >
+            Lifeline Devs
+          </button>
+
+          {/* Navigation Links */}
+          <div className="flex space-x-8">
+            <Link
+              to="/Map"
+              className="text-white/80 hover:text-white hover:underline hover:underline-offset-8 transition-all duration-300 text-shadow-md"
             >
-              <FaSignInAlt />Logout
-            </button>
-          </>
-        ) : (
-          <>
-           <Link to="/login">
-                        <li className="flex items-center gap-2 text-[#fcefef] font-medium px-1 py-1.5 rounded-lg hover:bg-[#fbb13c] hover:text-[#03045e] transition-all duration-300 ease-in-out transform hover:scale-105 cursor-pointer shadow-md hover:shadow-lg">
-                            <FaSignInAlt /> Login
-                        </li>
-                    </Link>
-                    <Link to="/signup">
-                        <li className="flex items-center gap-2 text-[#03045e] font-medium px-1 py-1.5 bg-[#f8e16c] rounded-lg hover:bg-[#fbb13c] hover:text-[#03045e] transition-all duration-300 ease-in-out transform hover:scale-105 cursor-pointer shadow-md hover:shadow-lg">
-                            <FaUserPlus /> Sign Up
-                        </li>
-                    </Link>
-          </>
-        )}
-                </ul>
-            </div>
-        </nav>
-    );
+              Nearby Hospitals
+            </Link>
+            <Link
+              to="/Schedule"
+              className="text-white/80 hover:text-white hover:underline hover:underline-offset-8 transition-all duration-300 text-shadow-md"
+            >
+              Schedule Appointment
+            </Link>
+            <Link
+              to="/Contact"
+              className="text-white/80 hover:text-white hover:underline hover:underline-offset-8 transition-all duration-300 text-shadow-md"
+            >
+              Contact Us
+            </Link>
+            <Link
+              to="/Aboutus"
+              className="text-white/80 hover:text-white hover:underline hover:underline-offset-8 transition-all duration-300 text-shadow-md"
+            >
+              About Us
+            </Link>
+
+            {isAuthenticated ? (
+                        <>
+                            <Link to="/Profile">
+                                <li className="flex items-center gap-2 text-[#fcefef] font-medium px-1 py-1.5 rounded-lg hover:bg-[#fbb13c] hover:text-[#03045e] transition-all duration-300 ease-in-out transform hover:scale-105 cursor-pointer shadow-md hover:shadow-lg">
+                                    <CgProfile /> Profile
+                                </li>
+                            </Link>
+                            <button
+                                onClick={handleLogout}
+                                className="flex items-center gap-2 text-[#fcefef] font-medium px-1 py-1.5 rounded-lg hover:bg-[#fbb13c] hover:text-[#03045e] transition-all duration-300 ease-in-out transform hover:scale-105 cursor-pointer shadow-md hover:shadow-lg"
+                            >
+                                <FaSignInAlt /> Logout
+                            </button>
+                        </>
+                    ) : (
+                        <>
+                            <Link to="/login">
+                                <li className="flex items-center gap-2 text-[#fcefef] font-medium px-1 py-1.5 rounded-lg hover:bg-[#fbb13c] hover:text-[#03045e] transition-all duration-300 ease-in-out transform hover:scale-105 cursor-pointer shadow-md hover:shadow-lg">
+                                    <FaSignInAlt /> Login
+                                </li>
+                            </Link>
+                            <Link to="/signup">
+                                <li className="flex items-center gap-2 text-[#03045e] font-medium px-1 py-1.5 bg-[#f8e16c] rounded-lg hover:bg-[#fbb13c] hover:text-[#03045e] transition-all duration-300 ease-in-out transform hover:scale-105 cursor-pointer shadow-md hover:shadow-lg">
+                                    <FaUserPlus /> Sign Up
+                                </li>
+                            </Link>
+               </>
+            )}
+          </div>
+        </div>
+      </nav>
+    </div>
+  );
 
 }
