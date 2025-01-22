@@ -24,7 +24,7 @@ export default function App() {
       <Route path="/" element = {<Home/>}/>;
       <Route path="/Map" element = {<Map/>}/>; 
       <Route path="/signup" element = {<Signup/>}/>;
-      <Route path="/Schedule" element = {<Dashboard/>}/>;
+      <Route path="/Profile" element = {<Dashboard/>}/>;
       <Route path="/login" element = {<Login/>}/>;
       <Route path="/Contact" element={<Contact />} />
       <Route path="/aboutus" element={<AboutUs />} />
@@ -33,6 +33,7 @@ export default function App() {
       <Route path='/pdata' element={<PatientData/>}/>
       <Route path="/forgot-password" element={<ForgotPassword />} /> 
       <Route path="/news" element={<News />} /> 
+      <Route path="/Schedule" element={<Schedule />} />
       
 
     </Routes>
