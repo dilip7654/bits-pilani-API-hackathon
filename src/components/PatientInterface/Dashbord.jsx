@@ -10,38 +10,38 @@ import {
 } from 'lucide-react';
 import ScheduleAppointment from '../schedule';
 import MyApp from './MyApp';
+import Name from './Name';
+import Personal_info from './Personal_info';
+import FeedbackForm from './FeedbackForm';
 
 
 const Dashboard = () => (
   <div className="p-6">
-    <h2 className="text-2xl font-bold mb-4">Dashboard</h2>
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <h2 className="text-2xl font-bold mb-4"><Name/></h2>
+    {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-4"> */}
       <div className="bg-white p-4 rounded-lg shadow">
-        <h3 className="font-semibold mb-2">Recent Appointments</h3>
-        <p>No recent appointments</p>
+        <h3 className="font-semibold mb-2"><Personal_info/></h3>
+        
       </div>
-      <div className="bg-white p-4 rounded-lg shadow">
+      {/* <div className="bg-white p-4 rounded-lg shadow">
         <h3 className="font-semibold mb-2">Health Statistics</h3>
         <p>Your health data will appear here</p>
-      </div>
-    </div>
+      </div> */}
+    {/* </div> */}
   </div>
 );
 
 const BookAppointment = () => (
   <div className="p-6">
     <h2 className="text-2xl font-bold mb-4"><ScheduleAppointment/></h2>
-    <div className="bg-white p-4 rounded-lg shadow">
-      <p>Book your next appointment here</p>
-    </div>
+    
   </div>
 );
 
 const Calendar = () => (
   <div className="p-6">
     <h2 className="text-2xl font-bold mb-4"><MyApp/></h2>
-    <div className="bg-white p-4 rounded-lg shadow">
-      <p>Your schedule will appear here</p>    </div>
+    
   </div>
 );
 
@@ -56,21 +56,19 @@ const Report = () => (
 
 const Feedback = () => (
   <div className="p-6">
-    <h2 className="text-2xl font-bold mb-4">Feedback</h2>
-    <div className="bg-white p-4 rounded-lg shadow">
-      <p>Share your feedback here</p>
-    </div>
+    <h2 className="text-2xl font-bold mb-4"><FeedbackForm/></h2>
+    
   </div>
 );
 
-const Setting = () => (
-  <div className="p-6">
-    <h2 className="text-2xl font-bold mb-4">Settings</h2>
-    <div className="bg-white p-4 rounded-lg shadow">
-      <p>Manage your account settings here</p>
-    </div>
-  </div>
-);
+// const Setting = () => (
+//   <div className="p-6">
+//     <h2 className="text-2xl font-bold mb-4">Settings</h2>
+//     <div className="bg-white p-4 rounded-lg shadow">
+//       <p>Manage your account settings here</p>
+//     </div>
+//   </div>
+// );
 
 const SidebarLayout = () => {
   const [activeTab, setActiveTab] = useState('Dashboard');
@@ -81,13 +79,13 @@ const SidebarLayout = () => {
     { id: 'Calendar', icon: <CalendarDays size={20} />, text: 'Calendar', component: Calendar },
     { id: 'Report', icon: <FileText size={20} />, text: 'Report', component: Report },
     { id: 'Feedback', icon: <MessageSquare size={20} />, text: 'Feedback', component: Feedback },
-    { id: 'Setting', icon: <Settings size={20} />, text: 'Setting', component: Setting }
+    // { id: 'Setting', icon: <Settings size={20} />, text: 'Setting', component: Setting }
   ];
 
   const ActiveComponent = sidebarItems.find(item => item.id === activeTab)?.component || Dashboard;
 
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="flex h-screen bg-gray-100 mt-14">
       {/* Sidebar */}
       <div className="w-64 bg-white shadow-lg">
         {/* Logo */}
