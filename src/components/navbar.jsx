@@ -1,9 +1,10 @@
 import React, { useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { signOut } from "firebase/auth";
 import { auth } from "./Firebase";
 import { AuthContext } from "./AuthContext";
 import { onAuthStateChanged, setPersistence, browserLocalPersistence } from "firebase/auth";
+import { CgProfile } from "react-icons/cg";
+import { signOut, onAuthStateChanged, setPersistence, browserLocalPersistence } from "firebase/auth";
 import { FaHome, FaHospitalAlt, FaCalendarAlt, FaSignInAlt, FaUserPlus, FaInfoCircle, FaEnvelope } from "react-icons/fa";
 
 import { CgProfile } from "react-icons/cg";
@@ -117,7 +118,7 @@ export default function Navbar() {
                                     <FaUserPlus /> Sign Up
                                 </li>
                             </Link>
-                        </>
+               </>
             )}
           </div>
         </div>
