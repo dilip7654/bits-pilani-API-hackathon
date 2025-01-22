@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
+import { useAppointments } from './AppointmentContext';
 import ProgressIndicator from './ProgressIndicator';
 
 function Schedule() {
+  const { addAppointment } = useAppointments();
+  
+  
+  // Add all required state variables
   const [step, setStep] = useState(1);
   const [selectedSpecialization, setSelectedSpecialization] = useState('');
-  const [selectedDoctor, setSelectedDoctor] = useState(null);
+  const [selectedDoctor, setSelectedDoctor] = useState('');
   const [appointmentDetails, setAppointmentDetails] = useState({
-    type: '',
     name: '',
     email: '',
     phone: '',
-    reason: '',
-    timeSlot: '',
     date: '',
   });
 
@@ -41,8 +43,6 @@ function Schedule() {
     'ENT Specialist': ['Dr. Rakesh Iyer', 'Dr. Pallavi Deshmukh', 'Dr. Suresh Menon'],
   };
 
-  const availableSlots = ['09:00 AM', '01:00 PM', '02:00 PM', '04:00 PM'];
-
   const handleNext = () => setStep(step + 1);
   const handleBack = () => setStep(step - 1);
 
@@ -51,21 +51,37 @@ function Schedule() {
     setAppointmentDetails({ ...appointmentDetails, [name]: value });
   };
 
-  const handleTimeSlotSelect = (slot) => {
-    setAppointmentDetails({ ...appointmentDetails, timeSlot: slot });
-  };
-
-  const confirmAppointment = () => {
-    alert('Appointment Confirmed! Details have been sent to your email.');
+  const handleSubmit = () => {
+    const appointmentData = {
+      specialization: selectedSpecialization,
+      doctor: selectedDoctor,
+      date: appointmentDetails.date,
+      name: appointmentDetails.name,
+      email: appointmentDetails.email,
+      phone: appointmentDetails.phone
+    };
+    
+    addAppointment(appointmentData);
+    alert('Appointment Confirmed! You can view it in your dashboard.');
+    
+    // Reset form
+    setStep(1);
+    setSelectedSpecialization('');
+    setSelectedDoctor('');
+    setAppointmentDetails({
+      name: '',
+      email: '',
+      phone: '',
+      date: ''
+    });
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-[#03045e]/90 to-[#0077b6]/80 flex flex-col items-center justify-center py-8 px-4">
+    <div className="min-h-screen bg-[#e0f7fa] flex flex-col items-center justify-center py-8 px-4">
       <div className="max-w-4xl w-full bg-white rounded-lg shadow-lg p-8">
-
         {/* Header */}
         <h1 className="text-3xl font-bold text-center text-[#0077b6]">Your Health Journey Begins Here</h1>
-        <p className="text-lg text-center text-[#03045e] mt-2 mb-3">Let's find the perfect time for your appointment</p>
+        <p className="text-lg text-center text-[#0077b6] mt-2 mb-3">Let's find the perfect time for your appointment</p>
 
         {/* Progress Indicator */}
         <ProgressIndicator currentStep={step} />
@@ -73,10 +89,11 @@ function Schedule() {
         {/* Step 1: Select Specialization */}
         {step === 1 && (
           <div>
-            <h2 className="text-2xl font-bold text-center text-[#0077b6]">Select Specialization</h2>
+            <h2 className="text-2xl font-semibold text-center text-[#0077b6]">Select Specialization</h2>
             <select
               onChange={(e) => setSelectedSpecialization(e.target.value)}
-              className="w-full mt-4 px-4 py-2 border border-gray-300 rounded-lg"
+              value={selectedSpecialization}
+              className="w-full mt-4 px-4 py-2 border border-[#0077b6] rounded-lg text-gray-700 font-medium"
             >
               <option value="">Select Specialization</option>
               {specializations.map((specialization) => (
@@ -89,7 +106,7 @@ function Schedule() {
               <button
                 onClick={handleNext}
                 disabled={!selectedSpecialization}
-                className="bg-[#0077b6] text-white px-4 py-2 rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-transform duration-200"
+                className="bg-[#0077b6] text-white font-medium px-4 py-2 rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-transform duration-200"
               >
                 Next
               </button>
@@ -100,14 +117,14 @@ function Schedule() {
         {/* Step 2: Select Doctor */}
         {step === 2 && (
           <div>
-            <h2 className="text-2xl font-bold text-center text-[#0077b6]">Choose Your Healer</h2>
+            <h2 className="text-2xl font-semibold text-center text-[#0077b6]">Choose Your Healer</h2>
             <div className="grid grid-cols-2 gap-4 mt-6">
               {(doctorsBySpecialization[selectedSpecialization] || []).map((doctor) => (
                 <button
                   key={doctor}
                   onClick={() => setSelectedDoctor(doctor)}
-                  className={`p-4 border rounded-lg transition-transform duration-200 hover:scale-105 hover:shadow-lg ${
-                    selectedDoctor === doctor ? 'bg-[#00b4d8] text-white' : 'border-gray-300'
+                  className={`p-4 border rounded-lg text-gray-700 font-medium transition-transform duration-200 hover:scale-105 hover:shadow-lg ${
+                    selectedDoctor === doctor ? 'bg-[#00b4d8] text-white' : 'border-[#0077b6]'
                   }`}
                 >
                   {doctor}
@@ -117,14 +134,14 @@ function Schedule() {
             <div className="flex justify-between mt-6">
               <button
                 onClick={handleBack}
-                className="bg-[#fbb13c] text-white px-4 py-2 rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-transform duration-200"
+                className="bg-[#023e8a] text-white font-medium px-4 py-2 rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-transform duration-200"
               >
                 Back
               </button>
               <button
                 onClick={handleNext}
                 disabled={!selectedDoctor}
-                className="bg-[#0077b6] text-white px-4 py-2 rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-transform duration-200"
+                className="bg-[#0077b6] text-white font-medium px-4 py-2 rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-transform duration-200"
               >
                 Next
               </button>
@@ -132,41 +149,30 @@ function Schedule() {
           </div>
         )}
 
-        {/* Step 3: Select Date and Time */}
+        {/* Step 3: Select Date */}
         {step === 3 && (
           <div>
-            <h2 className="text-2xl font-bold text-center text-[#0077b6]">Select Date and Time</h2>
-            <input
-              type="date"
-              name="date"
-              onChange={(e) => setAppointmentDetails({ ...appointmentDetails, date: e.target.value })}
-              className="mt-4 w-full px-4 py-2 border border-gray-300 rounded-lg"
-            />
-            <h3 className="text-lg mt-4">Available Time Slots</h3>
-            <div className="flex flex-wrap gap-2 mt-2">
-              {availableSlots.map((slot) => (
-                <button
-                  key={slot}
-                  onClick={() => handleTimeSlotSelect(slot)}
-                  className={`px-4 py-2 border rounded-lg transition-transform duration-200 hover:scale-105 hover:shadow-lg ${
-                    appointmentDetails.timeSlot === slot ? 'bg-[#00b4d8] text-white' : 'border-gray-300'
-                  }`}
-                >
-                  {slot}
-                </button>
-              ))}
+            <h2 className="text-2xl font-semibold text-center text-[#0077b6]">Choose a Date</h2>
+            <div className="mt-6">
+              <input
+                type="date"
+                name="date"
+                value={appointmentDetails.date}
+                onChange={handleInputChange}
+                className="w-full px-4 py-2 border border-[#0077b6] rounded-lg text-gray-700 font-medium"
+              />
             </div>
             <div className="flex justify-between mt-6">
               <button
                 onClick={handleBack}
-                className="bg-[#fbb13c] text-white px-4 py-2 rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-transform duration-200"
+                className="bg-[#023e8a] text-white font-medium px-4 py-2 rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-transform duration-200"
               >
                 Back
               </button>
               <button
                 onClick={handleNext}
-                disabled={!appointmentDetails.date || !appointmentDetails.timeSlot}
-                className="bg-[#0077b6] text-white px-4 py-2 rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-transform duration-200"
+                disabled={!appointmentDetails.date}
+                className="bg-[#0077b6] text-white font-medium px-4 py-2 rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-transform duration-200"
               >
                 Next
               </button>
@@ -177,46 +183,44 @@ function Schedule() {
         {/* Step 4: Enter Details */}
         {step === 4 && (
           <div>
-            <h2 className="text-2xl font-bold text-center text-[#0077b6]">Tell Us More</h2>
-            <form className="mt-4 space-y-4">
+            <h2 className="text-2xl font-semibold text-center text-[#0077b6]">Fill in Your Details</h2>
+            <div className="grid grid-cols-1 gap-4 mt-6">
               <input
                 type="text"
                 name="name"
                 placeholder="Your Name"
+                value={appointmentDetails.name}
                 onChange={handleInputChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg"
+                className="w-full px-4 py-2 border border-[#0077b6] rounded-lg text-gray-700 font-medium"
               />
               <input
                 type="email"
                 name="email"
-                placeholder="Email"
+                placeholder="Your Email"
+                value={appointmentDetails.email}
                 onChange={handleInputChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg"
+                className="w-full px-4 py-2 border border-[#0077b6] rounded-lg text-gray-700 font-medium"
               />
               <input
-                type="text"
+                type="tel"
                 name="phone"
-                placeholder="Phone Number"
+                placeholder="Your Phone Number"
+                value={appointmentDetails.phone}
                 onChange={handleInputChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg"
+                className="w-full px-4 py-2 border border-[#0077b6] rounded-lg text-gray-700 font-medium"
               />
-              <textarea
-                name="reason"
-                placeholder="Reason for Visit"
-                onChange={handleInputChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg"
-              />
-            </form>
+            </div>
             <div className="flex justify-between mt-6">
               <button
                 onClick={handleBack}
-                className="bg-[#fbb13c] text-white px-4 py-2 rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-transform duration-200"
+                className="bg-[#023e8a] text-white font-medium px-4 py-2 rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-transform duration-200"
               >
                 Back
               </button>
               <button
                 onClick={handleNext}
-                className="bg-[#0077b6] text-white px-4 py-2 rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-transform duration-200"
+                disabled={!appointmentDetails.name || !appointmentDetails.email || !appointmentDetails.phone}
+                className="bg-[#0077b6] text-white font-medium px-4 py-2 rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-transform duration-200"
               >
                 Next
               </button>
@@ -227,29 +231,39 @@ function Schedule() {
         {/* Step 5: Confirm Appointment */}
         {step === 5 && (
           <div>
-            <h2 className="text-2xl font-bold text-center text-[#0077b6]">Confirm Your Appointment</h2>
-            <div className="bg-[#fcefef] p-4 rounded-lg mt-4">
-              <p><strong>Specialization:</strong> {selectedSpecialization}</p>
-              <p><strong>Doctor:</strong> {selectedDoctor}</p>
-              <p><strong>Date:</strong> {appointmentDetails.date}</p>
-              <p><strong>Time:</strong> {appointmentDetails.timeSlot}</p>
-              <p><strong>Name:</strong> {appointmentDetails.name}</p>
-              <p><strong>Email:</strong> {appointmentDetails.email}</p>
-              <p><strong>Phone:</strong> {appointmentDetails.phone}</p>
-              <p><strong>Reason:</strong> {appointmentDetails.reason}</p>
+            <h2 className="text-2xl font-semibold text-center text-[#0077b6]">Confirm Your Appointment</h2>
+            <div className="mt-6 p-4 bg-[#e0f7fa] rounded-lg shadow-md">
+              <p className="text-gray-700 font-medium">
+                <strong>Specialization:</strong> {selectedSpecialization}
+              </p>
+              <p className="text-gray-700 font-medium">
+                <strong>Doctor:</strong> {selectedDoctor}
+              </p>
+              <p className="text-gray-700 font-medium">
+                <strong>Date:</strong> {appointmentDetails.date}
+              </p>
+              <p className="text-gray-700 font-medium">
+                <strong>Name:</strong> {appointmentDetails.name}
+              </p>
+              <p className="text-gray-700 font-medium">
+                <strong>Email:</strong> {appointmentDetails.email}
+              </p>
+              <p className="text-gray-700 font-medium">
+                <strong>Phone:</strong> {appointmentDetails.phone}
+              </p>
             </div>
             <div className="flex justify-between mt-6">
               <button
                 onClick={handleBack}
-                className="bg-[#fbb13c] text-white px-4 py-2 rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-transform duration-200"
+                className="bg-[#023e8a] text-white font-medium px-4 py-2 rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-transform duration-200"
               >
                 Back
               </button>
               <button
-                onClick={confirmAppointment}
-                className="bg-[#0077b6] text-white px-4 py-2 rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-transform duration-200"
+                onClick={handleSubmit}
+                className="bg-[#0077b6] text-white font-medium px-4 py-2 rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-transform duration-200"
               >
-                Confirm Appointment
+                Confirm
               </button>
             </div>
           </div>
@@ -259,6 +273,4 @@ function Schedule() {
   );
 }
 
-
 export default Schedule;
-
