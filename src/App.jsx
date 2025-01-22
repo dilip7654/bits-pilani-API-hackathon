@@ -4,7 +4,6 @@ import Home from './components/home';
 import Signup from './components/Signup';
 import Schedule from './components/schedule';
 import Navbar from './components/navbar';
-import Contact from './components/contact';
 import 'react-toastify/dist/ReactToastify.css';
 import Login from './components/Login';
 import AboutUs from './components/aboutus';
@@ -26,7 +25,6 @@ export default function App() {
       <Route path="/signup" element = {<Signup/>}/>;
       <Route path="/Profile" element = {<Dashboard/>}/>;
       <Route path="/login" element = {<Login/>}/>;
-      <Route path="/Contact" element={<Contact />} />
       <Route path="/aboutus" element={<AboutUs />} />
       {/* <Route path="/dashboard" element={<Dashbord />} /> */}
       <Route path='/UIF' element={<UserInterFace/>}/>
