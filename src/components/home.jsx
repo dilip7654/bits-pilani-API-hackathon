@@ -9,7 +9,7 @@ import people1Image from "../assets/people1.jpg";
 import people2Image from "../assets/people2.jpg";
 import { useInView } from "react-intersection-observer";
 import HealthCard from "./HealthcareCard";
-
+import ContactPage from "./ContactPage";
 
 // Feature Card Component
 const FeatureCard = ({ title, subtitle, description, imgSrc, buttonText }) => {
@@ -43,7 +43,6 @@ const FeatureCard = ({ title, subtitle, description, imgSrc, buttonText }) => {
 };
 
 // Testimonial Card Component
-
 const TestimonialCard = ({ name, role, company, quote, imgSrc, rating, date }) => {
   return (
     <motion.div
@@ -85,34 +84,7 @@ const TestimonialCard = ({ name, role, company, quote, imgSrc, rating, date }) =
   );
 };
 
-// Contact Card Component
-const ContactCard = ({ title, subtitle, description, action }) => {
-  const controls = useAnimation();
-  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.2 });
 
-  useEffect(() => {
-    if (inView) controls.start("visible");
-  }, [controls, inView]);
-
-  return (
-    <motion.div
-      ref={ref}
-      className="bg-[#e0f7fa] border border-[#90e0ef] rounded-lg p-8 transform transition-transform hover:scale-105 hover:border-[#48cae4]"
-      initial="hidden"
-      animate={controls}
-      variants={{
-        hidden: { opacity: 0, y: 50 },
-        visible: { opacity: 1, y: 0 },
-      }}
-      transition={{ duration: 0.6 }}
-    >
-      <div className="text-[#023e8a] text-sm mb-2">{subtitle}</div>
-      <h2 className="text-[#0077b6] text-2xl font-bold mb-4">{title}</h2>
-      <p className="text-[#023e8a] mb-6">{description}</p>
-      {action}
-    </motion.div>
-  );
-};
 export default function HealthcareSite() {
   const [testimonialIndex, setTestimonialIndex] = useState(0);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -191,10 +163,10 @@ export default function HealthcareSite() {
           <div className="container mx-auto px-6">
             <div className="max-w-2xl">
               <h1 className="text-5xl font-bold text-white mb-6">
-              Lifeline Devs: Your Health, Our Priority
+                Lifeline Devs: Your Health, Our Priority
               </h1>
               <p className="text-xl text-white mb-8">
-              Experience Healthcare Like Never Before—Where Convenience Meets Care, Giving You the Tools to Manage Your Health Effortlessly.
+                Experience Healthcare Like Never Before—Where Convenience Meets Care, Giving You the Tools to Manage Your Health Effortlessly.
               </p>
             </div>
           </div>
@@ -204,8 +176,7 @@ export default function HealthcareSite() {
       {/* Features Section */}
       <HealthCard />
 
-    
-     {/* Testimonials Section */}
+      {/* Testimonials Section */}
       <div className="py-10 bg-[#ffffff]">
         <div className="container mx-auto px-6">
           <motion.div
@@ -236,62 +207,10 @@ export default function HealthcareSite() {
       </div>
 
       {/* Contact Section */}
-      <div className="py-10 bg-[#ffffff]">
-        <div className="container mx-auto px-6">
-          <motion.div
-            className="text-center mb-12"
-            initial={{ opacity: 0, y: -20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <h2 className="text-4xl font-bold text-[#0077b6] mb-6">We're Here to Help</h2>
-            <p className="text-xl text-[#023e8a]">
-              Our service team is available Mon-Fri (8 AM - 8 PM STD), and on weekends & holidays (9 AM - 6 PM STD).
-            </p>
-          </motion.div>
+      <ContactPage />
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            <ContactCard
-              title="Start a Chat"
-              subtitle="Instant Support"
-              description="We respond right away during normal business hours."
-              action={
-                <button className="border border-[#0077b6] text-[#0077b6] px-6 py-2 rounded-full hover:bg-[#0077b6] hover:text-white transition-colors w-full">
-                  Start Chat
-                </button>
-              }
-            />
-            <ContactCard
-              title="Give Us a Call"
-              subtitle="Voice Support"
-              description="We strive to answer within one ring."
-              action={
-                <div className="space-y-3">
-                  <button className="border border-[#0077b6] text-[#0077b6] px-6 py-2 rounded-full hover:bg-[#0077b6] hover:text-white transition-colors w-full">
-                    Call Doctors: +91 7020241088
-                  </button>
-                  <button className="border border-[#0077b6] text-[#0077b6] px-6 py-2 rounded-full hover:bg-[#0077b6] hover:text-white transition-colors w-full">
-                    Call Providers: +91 9359367590
-                  </button>
-                </div>
-              }
-            />
-            <ContactCard
-              title="Send Us an Email"
-              subtitle="Email Support"
-              description="We'll respond within a day."
-              action={
-                <button className="border border-[#0077b6] text-[#0077b6] px-6 py-2 rounded-full hover:bg-[#0077b6] hover:text-white transition-colors w-full">
-                  Email Us
-                </button>
-              }
-            />
-          </div>
-        </div>
-      </div>
-
-      {/* Newsletter Section */}
-      <div className="py-20 bg-[#ffffff]">
+           {/* Newsletter Section */}
+           <div className="py-20 bg-[#ffffff]">
         <div className="container mx-auto px-6">
           <motion.div
             className="max-w-4xl mx-auto bg-white border border-[#90e0ef] rounded-2xl overflow-hidden shadow-xl"
