@@ -2,7 +2,8 @@ import React, { useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { auth } from "./Firebase";
 import { AuthContext } from "./AuthContext";
-import { signOut, onAuthStateChanged, setPersistence, browserLocalPersistence } from "firebase/auth";
+import { signOut } from "firebase/auth";
+
 
 export default function Navbar() {
   const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
