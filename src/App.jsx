@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import Home from './components/home';
-import Map from './components/map';
+// import Map from './components/map';
 import Signup from './components/Signup';
 // import Schedule from './components/Schedule';
 import Navbar from './components/navbar';
@@ -23,7 +23,7 @@ export default function App() {
     <Navbar/>
     <Routes>
       <Route path="/" element = {<Home/>}/>;
-      <Route path="/Map" element = {<Map/>}/>; 
+      {/* <Route path="/Map" element = {<Map/>}/>;  */}
       <Route path="/signup" element = {<Signup/>}/>;
       <Route path="/Profile" element = {<Dashboard/>}/>;
       <Route path="/login" element = {<Login/>}/>;

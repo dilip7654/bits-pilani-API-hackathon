@@ -9,10 +9,11 @@ import {
   Heart 
 } from 'lucide-react';
 import ScheduleAppointment from '../schedule';
-import MyApp from './MyApp';
+// import MyApp from './MyApp';
 import Name from './Name';
 import Personal_info from './Personal_info';
 import FeedbackForm from './FeedbackForm';
+import CalendarApp from './CalenderApp';
 
 
 const Dashboard = () => (
@@ -40,19 +41,19 @@ const BookAppointment = () => (
 
 const Calendar = () => (
   <div className="p-6">
-    <h2 className="text-2xl font-bold mb-4"><MyApp/></h2>
+    <h2 className="text-2xl font-bold mb-4"><CalendarApp/></h2>
     
   </div>
 );
 
-const Report = () => (
-  <div className="p-6">
-    <h2 className="text-2xl font-bold mb-4">Reports</h2>
-    <div className="bg-white p-4 rounded-lg shadow">
-      <p>Your medical reports will appear here</p>
-    </div>
-  </div>
-);
+// const Report = () => (
+//   <div className="p-6">
+//     <h2 className="text-2xl font-bold mb-4">Reports</h2>
+//     <div className="bg-white p-4 rounded-lg shadow">
+//       <p>Your medical reports will appear here</p>
+//     </div>
+//   </div>
+// );
 
 const Feedback = () => (
   <div className="p-6">
@@ -77,7 +78,7 @@ const SidebarLayout = () => {
     { id: 'Dashboard', icon: <LayoutGrid size={20} />, text: 'Dashboard', component: Dashboard },
     { id: 'BookAppointment', icon: <BookOpen size={20} />, text: 'Book Appointment', component: BookAppointment },
     { id: 'Calendar', icon: <CalendarDays size={20} />, text: 'Calendar', component: Calendar },
-    { id: 'Report', icon: <FileText size={20} />, text: 'Report', component: Report },
+    // { id: 'Report', icon: <FileText size={20} />, text: 'Report', component: Report },
     { id: 'Feedback', icon: <MessageSquare size={20} />, text: 'Feedback', component: Feedback },
     // { id: 'Setting', icon: <Settings size={20} />, text: 'Setting', component: Setting }
   ];

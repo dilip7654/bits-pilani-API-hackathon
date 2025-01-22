@@ -27,23 +27,23 @@ const Personal_info = () => {
   return (
     <div>
       <div className="additional-info w-4/5 mx-auto flex justify-between mt-4 bg-white shadow-lg rounded-lg p-4">
-        <div className="info bg-gray-600 text-white flex-1 text-center py-3 mx-2 rounded-md cursor-pointer hover:opacity-90 grid w-full grid-cols-4"
+        <div className="info bg-[#e0f7fa] font-bold text-[#023e8a] flex-1 text-center py-3 mx-2 rounded-md cursor-pointer hover:opacity-90 text-2xl"
         onClick={() => setActiveComponent('info')}>
            Info 
         </div>
         
-        <div className="history bg-green-600 text-white flex-1 text-center py-3 mx-2 rounded-md cursor-pointer hover:opacity-90"  onClick={() => setActiveComponent('history')}>
+        <div className="history bg-[#e0f7fa] font-bold text-[#023e8a] flex-1 text-center py-3 mx-2 rounded-md cursor-pointer hover:opacity-90 text-2xl"  onClick={() => setActiveComponent('history')}>
             <button
            >History</button>
         </div>
         
-        <div className="App-mts bg-amber-500 text-black flex-1 text-center py-3 mx-2 rounded-md cursor-pointer hover:opacity-90  "
+        <div className="App-mts bg-[#e0f7fa] font-bold text-[#023e8a] flex-1 text-center py-3 mx-2 rounded-md cursor-pointer hover:opacity-90 text-2xl  "
          onClick={()=>setActiveComponent('App')}>
             <button
            >Appointments</button>
         </div>
    
-        <div className="Test_res bg-red-600 text-white flex-1 text-center py-3 mx-2 rounded-md cursor-pointer hover:opacity-90 " onClick={()=> setActiveComponent('res')}>
+        <div className="Test_res bg-[#e0f7fa] font-bold text-[#023e8a] flex-1 text-center py-3 mx-2 rounded-md cursor-pointer hover:opacity-90 text-2xl " onClick={()=> setActiveComponent('res')}>
             <button
             >Test Result</button>
         </div>
