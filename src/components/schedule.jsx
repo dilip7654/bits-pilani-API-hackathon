@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
+import { useAppointments } from './AppointmentContext';
 import ProgressIndicator from './ProgressIndicator';
 
 function Schedule() {
+  const { addAppointment } = useAppointments();
+  
+  
+  // Add all required state variables
   const [step, setStep] = useState(1);
   const [selectedSpecialization, setSelectedSpecialization] = useState('');
   const [selectedDoctor, setSelectedDoctor] = useState('');
@@ -47,14 +52,33 @@ function Schedule() {
   };
 
   const handleSubmit = () => {
-    alert('Appointment Confirmed! Details have been sent to your email.');
-    console.log('Appointment Details:', { ...appointmentDetails, selectedSpecialization, selectedDoctor });
+    const appointmentData = {
+      specialization: selectedSpecialization,
+      doctor: selectedDoctor,
+      date: appointmentDetails.date,
+      name: appointmentDetails.name,
+      email: appointmentDetails.email,
+      phone: appointmentDetails.phone
+    };
+    
+    addAppointment(appointmentData);
+    alert('Appointment Confirmed! You can view it in your dashboard.');
+    
+    // Reset form
+    setStep(1);
+    setSelectedSpecialization('');
+    setSelectedDoctor('');
+    setAppointmentDetails({
+      name: '',
+      email: '',
+      phone: '',
+      date: ''
+    });
   };
 
   return (
     <div className="min-h-screen bg-[#e0f7fa] flex flex-col items-center justify-center py-8 px-4">
       <div className="max-w-4xl w-full bg-white rounded-lg shadow-lg p-8">
-
         {/* Header */}
         <h1 className="text-3xl font-bold text-center text-[#0077b6]">Your Health Journey Begins Here</h1>
         <p className="text-lg text-center text-[#0077b6] mt-2 mb-3">Let's find the perfect time for your appointment</p>
@@ -244,7 +268,6 @@ function Schedule() {
             </div>
           </div>
         )}
-
       </div>
     </div>
   );

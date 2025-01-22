@@ -13,6 +13,7 @@ import MyApp from './MyApp';
 import Name from './Name';
 import Personal_info from './Personal_info';
 import FeedbackForm from './FeedbackForm';
+import AppointmentDashboard from '../Appoinmentdashboard';
 
 
 const Dashboard = () => (
@@ -33,7 +34,7 @@ const Dashboard = () => (
 
 const BookAppointment = () => (
   <div className="p-6">
-    <h2 className="text-2xl font-bold mb-4"><ScheduleAppointment/></h2>
+    <h2 className="text-2xl font-bold mb-4"><AppointmentDashboard/></h2>
     
   </div>
 );
