@@ -13,11 +13,7 @@ import ScheduleAppointment from '../schedule';
 import Name from './Name';
 import Personal_info from './Personal_info';
 import FeedbackForm from './FeedbackForm';
-<<<<<<< HEAD
 import CalendarApp from './CalenderApp';
-=======
-import AppointmentDashboard from '../Appoinmentdashboard';
->>>>>>> main
 
 
 const Dashboard = () => (

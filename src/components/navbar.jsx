@@ -2,16 +2,12 @@ import React, { useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { auth } from "./Firebase";
 import { AuthContext } from "./AuthContext";
-<<<<<<< HEAD
 // import { onAuthStateChanged, setPersistence, browserLocalPersistence } from "firebase/auth";
 import { CgProfile } from "react-icons/cg";
 import { signOut, onAuthStateChanged, setPersistence, browserLocalPersistence } from "firebase/auth";
 import { FaHome, FaHospitalAlt, FaCalendarAlt, FaSignInAlt, FaUserPlus, FaInfoCircle, FaEnvelope } from "react-icons/fa";
 
 // import { CgProfile } from "react-icons/cg";
-=======
-import { signOut, onAuthStateChanged, setPersistence, browserLocalPersistence } from "firebase/auth";
->>>>>>> main
 
 export default function Navbar() {
   const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
