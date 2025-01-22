@@ -1,14 +1,38 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { auth } from "./Firebase";
 import { AuthContext } from "./AuthContext";
-import { CgProfile } from "react-icons/cg";
 import { signOut, onAuthStateChanged, setPersistence, browserLocalPersistence } from "firebase/auth";
-import { FaHome, FaHospitalAlt, FaCalendarAlt, FaSignInAlt, FaUserPlus, FaInfoCircle, FaEnvelope } from "react-icons/fa";console.log("Navbar component rendered");
 
 export default function Navbar() {
   const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  // Set session persistence on component mount
+  useEffect(() => {
+    const setSessionPersistence = async () => {
+      try {
+        await setPersistence(auth, browserLocalPersistence);
+      } catch (err) {
+        console.error("Session Persistence Error:", err.message);
+      }
+    };
+
+    setSessionPersistence();
+  }, []);
+
+  // Check authentication state on refresh
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setIsAuthenticated(true);
+      } else {
+        setIsAuthenticated(false);
+      }
+    });
+
+    return () => unsubscribe();
+  }, [setIsAuthenticated]);
 
   const handleLogout = async () => {
     try {
@@ -24,7 +48,6 @@ export default function Navbar() {
     <div className="bg-[#03045e]/40 fixed top-0 left-0 w-full z-50 backdrop-blur-md border-b border-transparent">
       <nav className="flex items-center justify-center h-16">
         <div className="flex items-center justify-between w-full max-w-7xl px-6 space-x-8">
-          {/* Brand Name (Lifeline Devs) Button */}
           <button
             onClick={() => navigate("/")}
             className="text-white text-3xl font-bold transition-transform duration-300 transform hover:scale-110"
@@ -42,7 +65,6 @@ export default function Navbar() {
           >
             Lifeline Devs
           </button>
-          {/* Navigation Links */}
           <div className="flex space-x-8">
             <Link
               to="/Map"
