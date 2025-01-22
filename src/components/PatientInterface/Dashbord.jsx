@@ -5,7 +5,6 @@ import {
   BookOpen, 
   FileText, 
   MessageSquare, 
-  Settings, 
   Heart 
 } from 'lucide-react';
 import ScheduleAppointment from '../schedule';
@@ -14,35 +13,27 @@ import Name from './Name';
 import Personal_info from './Personal_info';
 import FeedbackForm from './FeedbackForm';
 import AppointmentDashboard from '../Appoinmentdashboard';
-
+import CalendarApp from './CalenderApp'; // Ensure this is the correct path
 
 const Dashboard = () => (
   <div className="p-6">
-    <h2 className="text-2xl font-bold mb-4"><Name/></h2>
-    {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-4"> */}
-      <div className="bg-white p-4 rounded-lg shadow">
-        <h3 className="font-semibold mb-2"><Personal_info/></h3>
-        
-      </div>
-      {/* <div className="bg-white p-4 rounded-lg shadow">
-        <h3 className="font-semibold mb-2">Health Statistics</h3>
-        <p>Your health data will appear here</p>
-      </div> */}
-    {/* </div> */}
+    <h2 className="text-2xl font-bold mb-4"><Name /></h2>
+    <div className="bg-white p-4 rounded-lg shadow">
+      <h3 className="font-semibold mb-2"><Personal_info /></h3>
+    </div>
   </div>
 );
 
 const BookAppointment = () => (
   <div className="p-6">
-    <h2 className="text-2xl font-bold mb-4"><AppointmentDashboard/></h2>
-    
+    <h2 className="text-2xl font-bold mb-4"><AppointmentDashboard /></h2>
   </div>
 );
 
+// Calendar component from the first code
 const Calendar = () => (
   <div className="p-6">
-    <h2 className="text-2xl font-bold mb-4"><MyApp/></h2>
-    
+    <h2 className="text-2xl font-bold mb-4"><CalendarApp /></h2>
   </div>
 );
 
@@ -57,19 +48,9 @@ const Report = () => (
 
 const Feedback = () => (
   <div className="p-6">
-    <h2 className="text-2xl font-bold mb-4"><FeedbackForm/></h2>
-    
+    <h2 className="text-2xl font-bold mb-4"><FeedbackForm /></h2>
   </div>
 );
-
-// const Setting = () => (
-//   <div className="p-6">
-//     <h2 className="text-2xl font-bold mb-4">Settings</h2>
-//     <div className="bg-white p-4 rounded-lg shadow">
-//       <p>Manage your account settings here</p>
-//     </div>
-//   </div>
-// );
 
 const SidebarLayout = () => {
   const [activeTab, setActiveTab] = useState('Dashboard');
@@ -80,7 +61,6 @@ const SidebarLayout = () => {
     { id: 'Calendar', icon: <CalendarDays size={20} />, text: 'Calendar', component: Calendar },
     { id: 'Report', icon: <FileText size={20} />, text: 'Report', component: Report },
     { id: 'Feedback', icon: <MessageSquare size={20} />, text: 'Feedback', component: Feedback },
-    // { id: 'Setting', icon: <Settings size={20} />, text: 'Setting', component: Setting }
   ];
 
   const ActiveComponent = sidebarItems.find(item => item.id === activeTab)?.component || Dashboard;
@@ -108,7 +88,7 @@ const SidebarLayout = () => {
               }`}
             >
               <span className={activeTab === item.id ? 'text-blue-500' : ''}>{item.icon}</span>
-              <span className={`${activeTab === item.id ? 'font-medium text-yellow-500' : ''}`}>
+              <span className={activeTab === item.id ? 'font-medium text-yellow-500' : ''}>
                 {item.text}
               </span>
             </button>
