@@ -305,7 +305,7 @@ const HospitalCard = ({ hospital }) => {
           </div>
         </div>
       </div>
-  
+
       <HospitalDetails 
         hospital={hospital}
         isOpen={showDetails}
@@ -315,6 +315,7 @@ const HospitalCard = ({ hospital }) => {
   );
   
 }
+
 const LocationIQMap = ({ nearbyHospitals, userLocation, isLoading, error }) => {
   // ... LocationIQMap component code
   const mapContainerRef = useRef(null);
