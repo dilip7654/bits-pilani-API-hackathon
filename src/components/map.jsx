@@ -26,20 +26,12 @@ const MOCK_STATS = {
 const HospitalDetails = ({ hospital, isOpen, onClose }) => {
   // Mock additional details that would normally come from API
   const details = {
-    description:  `${hospital.name} is a leading healthcare facility providing comprehensive medical services to the community. Located in ${hospital.location}, we are committed to delivering exceptional patient care.`,
+    description: `${hospital.name} is a leading healthcare facility providing comprehensive medical services to the community. Located in ${hospital.location}, we are committed to delivering exceptional patient care.`,
     email: "contact@" + hospital.name.toLowerCase().replace(/\s+/g, '') + ".com",
     website: "www." + hospital.name.toLowerCase().replace(/\s+/g, '') + ".com",
     workingHours: "24/7",
-    departments: [
-      "Emergency Care",
-      "Surgery",
-      "Pediatrics",
-      "Cardiology",
-      "Neurology",
-      "Orthopedics"
-    ]
   };
-
+  
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
@@ -170,9 +162,9 @@ const EmergencySection = () => {
   };
 
   return (
-    <div className="relative bg-red-50/80 border border-white rounded-2xl p-6 flex flex-col justify-center shadow-lg ">
+    <div className="relative bg-red-50 border border-red-100 rounded-2xl p-6 flex flex-col justify-center">
       {showAlert && (
-        <div className="absolute top-0 left-0 right-0 -mt-6 mx-4">
+        <div className="absolute top-0 left-0 right-0 -mt-4 mx-4">
           <Alert variant={alertType === 'error' ? "destructive" : "default"}>
             <AlertDescription>
               {alertMessage}
@@ -241,7 +233,7 @@ const SearchBar = ({ onSearch }) => {
         type="text"
         value={searchQuery}
         onChange={handleSearch}
-        className="w-full pl-12 pr-4 py-3 rounded-xl bg-white backdrop-blur-sm border border-[#03045e] focus:ring-2 focus:ring-[#00b4d8] focus:border-transparent"
+        className="w-full pl-12 pr-4 py-3 rounded-xl bg-white/90 backdrop-blur-sm border border-gray-200 focus:ring-2 focus:ring-[#00b4d8] focus:border-transparent"
         placeholder="Search hospitals, specialties, or locations..."
       />
     </div>
@@ -270,14 +262,14 @@ const HospitalCard = ({ hospital }) => {
   return (
     <>
       <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden">
-        <div className="h-40 bg-[#e0f7fa] relative">
-          <div className="absolute top-4 right-4 bg-[#e0f7fa] rounded-full px-3 py-1 flex items-center">
-            <Star className="w-4 h-4 text-[#03045e] mr-1" />
-            <span className="font-semibold text-[#03045e]">{hospital.rating}</span>
+        <div className="h-40 bg-gradient-to-r from-[#00b4d8] to-[#0077b6] relative">
+          <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1 flex items-center">
+            <Star className="w-4 h-4 text-yellow-400 mr-1" />
+            <span className="font-semibold">{hospital.rating}</span>
           </div>
           <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/50 to-transparent">
-            <h3 className="text-[#03045e] font-semibold text-lg">{hospital.name}</h3>
-            <p className="text-[#e0f7fa] text-sm flex items-center">
+            <h3 className="text-white font-semibold text-lg">{hospital.name}</h3>
+            <p className="text-white/80 text-sm flex items-center">
               <MapPin className="w-4 h-4 mr-1" /> {hospital.location}
             </p>
           </div>
@@ -285,21 +277,19 @@ const HospitalCard = ({ hospital }) => {
         <div className="p-4">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center">
-              <Navigation className="w-4 h-4 text-[#03045e]/40 mr-1" />
-              <span className="text-sm text-[#03045e]/40">{hospital.distance} km away</span>
+              <Navigation className="w-4 h-4 text-gray-500 mr-1" />
+              <span className="text-sm text-gray-500">{hospital.distance} km away</span>
             </div>
-            <span className="text-sm text-[#03045e]/40">{hospital.beds} beds available</span>
+            <span className="text-sm text-gray-600">{hospital.beds} beds available</span>
           </div>
           <div className="flex items-center justify-between">
             <button 
               onClick={() => setShowDetails(true)}
-              className="px-4 py-2 text-sm bg-[#03045e] text-[#e0f7fa] rounded-lg hover:bg-[#0077b6] transition-colors"
+              className="px-4 py-2 text-sm bg-[#00b4d8] text-white rounded-lg hover:bg-[#0077b6] transition-colors"
             >
               View Details
             </button>
-            <button 
-              className="px-4 py-2 text-sm bg-[#e0f7fa] text-[#03045e] rounded-lg hover:bg-[#00b4d8]/10 transition-colors"
-            >
+            <button className="px-4 py-2 text-sm bg-[#00b4d8]/10 text-[#0077b6] rounded-lg hover:bg-[#00b4d8]/20 transition-colors">
               Book Appointment
             </button>
           </div>
@@ -313,8 +303,7 @@ const HospitalCard = ({ hospital }) => {
       />
     </>
   );
-  
-}
+};
 
 const LocationIQMap = ({ nearbyHospitals, userLocation, isLoading, error }) => {
   // ... LocationIQMap component code
@@ -456,29 +445,34 @@ export default function Map() {
 
         const data = await response.json();
         
-        const hospitals = Array.isArray(data)
-        ? data.map(hospital => ({
-            id: hospital.place_id || Math.random().toString(36).substring(2,15),
-            name: hospital.name || hospital.display_name || 'Unnamed Hospital',
-            location: hospital.address
-              ? (hospital.address.suburb || hospital.address.city || 'Unknown Location')
-              : 'Unknown Location',
-            lat: hospital.lat ? parseFloat(hospital.lat) : 0,
-            lng: hospital.lon ? parseFloat(hospital.lon) : 0,
-            rating: (Math.random() * (5 - 4) + 4).toFixed(1),
-            beds: Math.floor(Math.random() * (100 - 20) + 20),
-            distance: userLocation?.lat && userLocation?.lng
-              ? calculateDistance(
-                  userLocation.lat,
-                  userLocation.lng,
-                  parseFloat(hospital.lat || 0),
-                  parseFloat(hospital.lon || 0)
-                ).toFixed(1)
-              : 'Unknown Distance',
-          }))
-        : [];
-      
+        const hospitals = data.map((hospital) => {
+          // Destructure for clarity
+          const { place_id, name, display_name, address, lat, lon } = hospital;
         
+          // Helper function for random range
+          const getRandomInRange = (min, max) => Math.random() * (max - min) + min;
+        
+          // Fallbacks and parsing
+          const latitude = parseFloat(lat);
+          const longitude = parseFloat(lon);
+          const location = address?.suburb || address?.city || 'Unknown Location';
+        
+          // Build hospital object
+          return {
+            id: place_id || Math.random().toString(),
+            name: name || display_name || 'Unnamed Hospital',
+            location,
+            lat: latitude,
+            lng: longitude,
+            rating: getRandomInRange(4, 5).toFixed(1),
+            beds: Math.floor(getRandomInRange(20, 100)),
+            distance: latitude && longitude
+              ? calculateDistance(userLocation.lat, userLocation.lng, latitude, longitude).toFixed(1)
+              : 'Unknown',
+          };
+        });
+        
+
         setNearbyHospitals(hospitals);
         setFilteredHospitals(hospitals);
         setIsLoading(false);
@@ -510,15 +504,15 @@ export default function Map() {
   };
 
   return (
-    <div className="min-h-screen bg-white pb-50">
+    <div className="min-h-screen bg-gradient-to-b from-[#fdf4d1] via-[#fcefef] to-[#90e0ef] pb-72">
       <div className="max-w-7xl mx-auto p-6">
         {/* Hero Section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-          <div className="bg-[#e0f7fa] rounded-2xl shadow-lg p-7 mt-10">
-            <h1 className="text-3xl font-bold text-[#03045e] mb-2">
+          <div className="bg-gradient-to-r from-[#0077b6] to-[#00b4d8] rounded-2xl shadow-lg p-7">
+            <h1 className="text-3xl font-bold text-white mb-2">
               Find Healthcare Near You
             </h1>
-            <p className="text-[#03045e] mb-2">
+            <p className="text-white/90 mb-2">
               Locate and connect with the best hospitals in your area
             </p>
             <SearchBar onSearch={handleSearch} />

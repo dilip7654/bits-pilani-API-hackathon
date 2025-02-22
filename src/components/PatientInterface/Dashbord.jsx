@@ -14,7 +14,7 @@ import Name from './Name';
 import Personal_info from './Personal_info';
 import FeedbackForm from './FeedbackForm';
 import CalendarApp from './CalenderApp';
-
+import AppointmentDashboard from '../Appoinmentdashboard';
 
 const Dashboard = () => (
   <div className="p-6">

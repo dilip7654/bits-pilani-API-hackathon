@@ -33,7 +33,7 @@ export default function App() {
       <Route path="/news" element={<News />} /> 
       <Route path="/Schedule" element={<Schedule />} />
       
-
+                  
     </Routes>
       <Footer />
     </>
