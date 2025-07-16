@@ -76,7 +76,7 @@ const Name = () => {
           </div>
           
           <div className="left-box flex  justify-center items-start gap-2 mt-10">
-            <div className="contact bg-[#03045e] text-[#fcefef] px-6 py-2 rounded-md text-center cursor-pointer hover:bg-[#002f6c] shadow-lg flex items-center gap-2 w-38 justify-center transform hover:-translate-y-1 transition-all duration-200 border border-white/20">
+            <div className="contact bg-[#e0f7fa] text-[#0077b6] px-6 py-2 rounded-md text-center cursor-pointer hover:bg-[#002f6c] shadow-lg flex items-center gap-2 w-38 justify-center transform hover:-translate-y-1 transition-all duration-200 border border-white/20">
               <Phone size={16} />
               {userData.phone}
             </div>

@@ -191,7 +191,7 @@ const AllNews = () => {
           </div>
 
           {visibleNewsCount < latestNews.length && (
-            <div className="col-span-12 flex justify-center">
+            <div className="col-span-12 flex justify-center text-4xl">
               <button
                 onClick={loadMoreNews}
                 className="px-6 py-2 mt-6 bg-[#0077b6] text-white rounded-lg hover:bg-[#00b4d8]"
